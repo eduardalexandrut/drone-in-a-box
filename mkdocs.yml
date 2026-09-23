@@ -1,0 +1,8 @@
+site_name: Drone-in-a-Box System
+site_description: Distributed Edge-to-Cloud IoT System Documentation
+theme:
+  name: material
+  palette:
+    scheme: slate
+nav:
+  - Home: index.md
