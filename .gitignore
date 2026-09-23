@@ -1,0 +1,27 @@
+# =========================
+# IntelliJ / JetBrains IDE
+# =========================
+.idea/
+*.iml
+
+# =========================
+# Backend: Mosquitto MQTT
+# =========================
+# Ignore the MQTT persistence database and log files
+backend/mosquitto/data/*
+backend/mosquitto/log/*
+
+
+# =========================
+# Backend: Node-RED
+# =========================
+# Ignore downloaded dashboard nodes and libraries
+backend/nodered/data/node_modules/
+
+# Ignore sensitive credentials and session files
+backend/nodered/data/*_cred.json
+backend/nodered/data/.sessions.json
+backend/nodered/data/.config.runtime.json
+
+# Ignore temporary backups
+backend/nodered/data/*.backup
