@@ -1,0 +1,11 @@
+1790151014: mosquitto version 2.1.2 starting
+1790151014: Config loaded from /mosquitto/config/mosquitto.conf.
+1790151014: Bridge support available.
+1790151014: Persistence support available.
+1790151014: TLS support available.
+1790151014: TLS-PSK support available.
+1790151014: Websockets support available.
+1790151014: Opening ipv4 listen socket on port 1883.
+1790151014: mosquitto version 2.1.2 running
+1790151280: mosquitto version 2.1.2 terminating
+1790151280: Saving in-memory database to /mosquitto/data//mosquitto.db.
