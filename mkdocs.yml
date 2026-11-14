@@ -6,3 +6,17 @@ theme:
     scheme: slate
 nav:
   - Home: index.md
+  - Analysis: analysis.md
+  - Architecture: architecture.md
+  - Protocol: protocol.md
+  - Behaviour: behaviour.md
+  - Design:
+      - Control: design/control.md
+      - Hangar: design/hangar.md
+      - Drone: design/drone.md
+      - Backend e dashboard: design/backend.md
+      - Simulators: design/simulators.md
+  - Hardware: hardware.md
+  - Testing: testing.md
+  - Deployment: deployment.md
+  - Conclusions: conclusions.md
