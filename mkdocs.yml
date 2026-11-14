@@ -4,6 +4,18 @@ theme:
   name: material
   palette:
     scheme: slate
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - tables
+  - admonition
+  - toc:
+      permalink: true
+
 nav:
   - Home: index.md
   - Analysis: analysis.md
@@ -14,7 +26,7 @@ nav:
       - Control: design/control.md
       - Hangar: design/hangar.md
       - Drone: design/drone.md
-      - Backend e dashboard: design/backend.md
+      - Backend and dashboard: design/backend.md
       - Simulators: design/simulators.md
   - Hardware: hardware.md
   - Testing: testing.md

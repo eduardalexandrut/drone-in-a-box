@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "docs/**"
+      - ".github/workflows/deploy-docs.yml"
+      - "mkdocs.yml"
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
