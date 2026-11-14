@@ -95,7 +95,106 @@ Requirements are numbered so that they can be traced to the design and to the te
 - Backend: runs on a PC (broker, supervision logic, dashboard).
 
 ## 3. Domain model
- TODO
+```mermaid
+classDiagram
+  direction LR
+ 
+  class Hangar {
+    id
+    state
+    environmentSafe
+  }
+  class Door {
+    state: CLOSED | OPENING | OPEN | CLOSING
+    position %
+  }
+  class EnvironmentReading {
+    temperature °C
+    humidity %
+    waterDetected
+    timestamp
+  }
+  class SafetyPolicy {
+    thresholds
+    evaluate(reading) safe, reason
+  }
+  class Drone {
+    id
+    state
+    insideHangar
+  }
+  class Battery {
+    level %
+    charging
+  }
+  class Telemetry {
+    speed m/s
+    acceleration m/s²
+    altitude m
+    groundDistance m
+    distanceFromHangar m
+    tilt roll, pitch °
+    errorCode
+    timestamp
+  }
+  class Mission {
+    id
+    segments
+    progress %
+  }
+  class Request {
+    reqId
+    type: TAKEOFF | LANDING
+    timestamp
+  }
+  class Decision {
+    reqId
+    granted
+    reason
+  }
+  class Credentials {
+    droneId
+    sharedKey
+  }
+  class Operator
+  class Command {
+    type: START_MISSION | RECALL | EMERGENCY_CLOSE | RESET_ALARM
+    target
+  }
+  class SupervisionUnit
+ 
+  Hangar "1" *-- "1" Door
+  Hangar "1" --> "*" EnvironmentReading : samples
+  Hangar "1" --> "1" SafetyPolicy : applies
+  Hangar "1" o-- "0..1" Drone : hosts
+  Drone "1" *-- "1" Battery
+  Drone "1" --> "*" Telemetry : produces
+  Drone "1" --> "0..1" Mission : executes
+  Drone "1" --> "*" Request : sends
+  Drone "1" *-- "1" Credentials
+  Request "1" -- "1" Decision : answered by
+  Hangar "1" --> "*" Decision : takes
+  Operator "1" --> "*" Command : issues
+  SupervisionUnit "1" --> "*" Command : forwards
+  SupervisionUnit ..> Hangar : observes
+  SupervisionUnit ..> Drone : observes
+```
+
+### 3.1 Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Hangar | Ground station that hosts, protects and recharges the drone. |
+| Door | Movable cover of the hangar, driven by a servo motor. |
+| Environment reading | One sample of temperature, humidity and water/steam presence. |
+| Safety policy | Set of thresholds that classifies the environment as safe or unsafe. |
+| Mission | A flight made of consecutive segments; its progress is the travelled fraction of the total length. |
+| Request | A take-off or landing request sent by the drone; identified by a `reqId`. |
+| Decision | The hangar's answer to a request: granted or denied, with a reason. |
+| Challenge | Random value (nonce) sent by the hangar that the drone must sign to prove its identity. |
+| Holding | The drone hovering near the hangar while waiting for a landing grant. |
+| Supervision unit | Backend component that observes the system and forwards operator commands. |
+| Operator | Human user of the dashboard. |
 
 ## 4. Use cases
 
