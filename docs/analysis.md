@@ -13,15 +13,16 @@ The prototype focuses on the **coordination and safety logic** between the drone
 
 ### 1.1 What is real and what is simulated
 
-| Aspect | Real | Simulated |
-| --- | --- | --- |
-| Hangar door | servo motor | – |
-| Environmental data | temperature, humidity and water/steam sensors | – (can be injected for tests) |
-| Status indicators | LEDs and display | – |
-| Drone flight | – | speed, acceleration, altitude, ground distance, distance from the hangar, mission progress |
-| Drone battery | – | charge and discharge model |
-| Drone attitude (tilt) | tilt sensor, if available in the kit | roll/pitch angles otherwise |
-| Communication | Wi-Fi + MQTT between real devices | – |
+| Aspect | Real | Simulated                                                                                                                                                                      |
+| --- | --- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Hangar door | servo motor | –                                                                                                                                                                              |
+| Environmental data | temperature, humidity and water/steam sensors | – (can be injected for tests)                                                                                                                                                  |
+| Status indicators | LEDs and display | –                                                                                                                                                                              |
+| Drone presence | infrared sensor inside the hangar | –                                                                                                                                                                              |
+| Drone flight | – | speed, acceleration, altitude, ground distance, distance from the hangar, mission progress. The board is physically moved in and out of the hangar during take-off and landing |
+| Drone battery | – | charge and discharge model                                                                                                                                                     |
+| Drone attitude (tilt) | tilt sensor, if available in the kit | roll/pitch angles otherwise                                                                                                                                                    |
+| Communication | Wi-Fi + MQTT between real devices | –                                                                                                                                                                              |
 
 ## 2. Requirements
 
@@ -31,18 +32,20 @@ Requirements are numbered so that they can be traced to the design and to the te
 
 **Hangar**
 
-| ID | Requirement |
-| --- | --- |
-| FR-H1 | The hangar shall open and close its door on its own decision, moving it gradually. |
-| FR-H2 | The hangar shall periodically sample temperature, humidity and water/steam presence. |
-| FR-H3 | The hangar shall classify the environment as *safe* or *unsafe* according to configurable thresholds, and report the reason when unsafe. |
-| FR-H4 | The hangar shall evaluate every take-off request and grant it only if the environment is safe and the drone is inside. |
-| FR-H5 | The hangar shall authenticate the drone before evaluating a landing request. |
+| ID | Requirement                                                                                                                                                                      |
+| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| FR-H1 | The hangar shall open and close its door on its own decision, moving it gradually.                                                                                               |
+| FR-H2 | The hangar shall periodically sample temperature and humidity.                                                                                          |
+| FR-H3 | The hangar shall classify the environment as *safe* or *unsafe* according to configurable thresholds, and report the reason when unsafe.                                         |
+| FR-H4 | The hangar shall evaluate every take-off request and grant it only if the environment is safe and the presence sensor detects the drone inside.                                  |
+| FR-H5 | The hangar shall authenticate the drone before evaluating a landing request.                                                                                                     |
 | FR-H6 | The hangar shall evaluate every landing request and grant it only if the drone is authenticated, the environment is safe and the drone is stable (tilt and speed within limits). |
-| FR-H7 | The hangar shall notify a grant only when the door is fully open, and close the door once the drone has left or landed. |
-| FR-H8 | Every denial shall carry a machine-readable reason. |
-| FR-H9 | The hangar shall show its current state through LEDs and display. |
-| FR-H10 | The hangar shall publish its state, door position and environmental data. |
+| FR-H7 | The hangar shall notify a grant only when the door is fully open, and close the door once the drone has left or landed.                                                          |
+| FR-H8 | Every denial shall carry a machine-readable reason.                                                                                                                              |
+| FR-H9 | The hangar shall show its current state through LEDs and display.                                                                                                                |
+| FR-H10 | The hangar shall publish its state, door position and environmental data.                                                                                                        |
+| FR-H11 | The hangar shall allow resetting the alarm locally, through a button, when the backend is not available. |
+| FR-H12 | The hangar shall detect whether the drone is physically inside, through a presence sensor. |
 
 **Drone**
 

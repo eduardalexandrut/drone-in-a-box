@@ -86,9 +86,9 @@ Units are fixed: metres, metres per second, metres per second squared, degrees, 
 `dib/hangar/state`
 ```json
 { "v": 1, "type": "STATE", "src": "hangar", "ts": 90210,
-  "data": { "state": "ALARM", "cause": "DRONE_OFFLINE" } }
+  "data": { "state": "ALARM", "cause": "DRONE_OFFLINE", "droneDetected": false } }
 ```
-`cause` is present only in the `ALARM` state.
+`cause` is present only in the `ALARM` state. The message is published when the state changes and also when droneDetected changes.
 
 `dib/drone/state`
 ```json
@@ -113,7 +113,7 @@ Units are fixed: metres, metres per second, metres per second squared, degrees, 
 `dib/hangar/environment`
 ```json
 { "v": 1, "type": "ENVIRONMENT", "src": "hangar", "ts": 92000,
-  "data": { "temperature": 18.5, "humidity": 62, "water": false, "safe": true } }
+  "data": { "temperature": 18.5, "humidity": 62, "safe": true } }
 ```
 
 `dib/drone/telemetry`
@@ -238,7 +238,7 @@ Sent by the hangar in a `DENIED` message.
 |----------------|-----------------------------------------------------------------------|
 | `BAD_WEATHER`  | Humidity, temperature are above the safety threshold.                 |
 | `ALARM_ACTIVE` | The hangar is in the alarm state and accepts no requests until reset. |
-
+| `DRONE_NOT_PRESENT` | The presence sensor does not detect the drone inside the hangar. |
 
 ### Landing request
 
