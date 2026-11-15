@@ -25,3 +25,5 @@ backend/nodered/data/.config.runtime.json
 
 # Ignore temporary backups
 backend/nodered/data/*.backup
+
+.pio/

@@ -1,0 +1,84 @@
+name: firmware-release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "hangar-unit/**"
+      - "drone-unit/**"
+      - "firmware-common/**"
+      - ".github/workflows/firmware-release.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: pio-${{ runner.os }}-${{ hashFiles('**/platformio.ini') }}
+
+      - run: pip install platformio
+
+      - name: Prepare placeholder secrets
+        run: |
+          for unit in hangar-unit drone-unit; do
+            if [ -f "$unit/include/secrets.example.h" ]; then
+              cp "$unit/include/secrets.example.h" "$unit/include/secrets.h"
+            fi
+          done
+
+      - name: Unit tests
+        run: |
+          for unit in hangar-unit drone-unit; do
+            if [ -f "$unit/platformio.ini" ]; then
+              pio test -d "$unit" -e native
+            fi
+          done
+
+      - name: Build firmware
+        run: |
+          for unit in hangar-unit drone-unit; do
+            if [ -f "$unit/platformio.ini" ]; then
+              pio run -d "$unit" -e pico2w
+            fi
+          done
+
+      - name: Compute version and create tag
+        id: tag
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: false
+
+      - name: Collect firmware files
+        if: steps.tag.outputs.new_tag != ''
+        run: |
+          mkdir dist
+          for unit in hangar-unit drone-unit; do
+            f="$unit/.pio/build/pico2w/firmware.uf2"
+            if [ -f "$f" ]; then
+              cp "$f" "dist/${unit%-unit}-${{ steps.tag.outputs.new_tag }}.uf2"
+            fi
+          done
+
+      - name: Publish release
+        if: steps.tag.outputs.new_tag != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.new_tag }}
+          name: Firmware ${{ steps.tag.outputs.new_tag }}
+          body: ${{ steps.tag.outputs.changelog }}
+          files: dist/*.uf2
