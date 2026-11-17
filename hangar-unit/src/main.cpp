@@ -1,12 +1,18 @@
 #include <Arduino.h>
+#include "BlinkTask.h"
+
+BlinkTask blink(LED_BUILTIN);
+unsigned long last = 0;
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(115200);
+  blink.begin();
 }
 
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(500);
+  if (millis() - last >= 100) {
+    last = millis();
+    blink.tick();
+    Serial.println("tick");
+  }
 }
