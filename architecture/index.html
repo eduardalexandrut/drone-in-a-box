@@ -1,0 +1,1085 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Distributed Edge-to-Cloud IoT System Documentation">
+      
+      
+      
+      
+        <link rel="prev" href="../analysis/">
+      
+      
+        <link rel="next" href="../protocol/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Architecture - Drone-in-a-Box System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Drone-in-a-Box System" class="md-header__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Drone-in-a-Box System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Drone-in-a-Box System" class="md-nav__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Drone-in-a-Box System
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architectural style
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-of-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution of control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology choices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment view
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../behaviour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Behaviour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/hangar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/drone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend and dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/simulators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architectural style
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-of-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution of control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology choices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment view
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The system is composed of three main subsystems that communicate only through an MQTT broker:</p>
+<ul>
+<li><strong>Drone unit</strong>: a Raspberry Pi Pico 2 W that simulates an autonomous inspection drone. It runs the flight state machine, requests permission to take off and land, and publishes its state and telemetry. A tilt sensor detects the inclination of the board, while the flight data (speed, acceleration, altitude, ground distance, distance from the hangar, mission progress) and the battery level are simulated.</li>
+<li><strong>Hangar unit</strong>: a Raspberry Pi Pico 2 W that acts as the drone's ground station, sheltering it between missions. It opens and closes its door with a servo motor, monitors the environment (temperature, humidity and water/steam), and shows its state through LEDs and a display. It is the safety authority of the system: it authenticates the drone and grants or denies every take-off and landing request based on the local environmental conditions.</li>
+<li><strong>Backend</strong>: a set of services running on a PC.<ul>
+<li>The <strong>MQTT broker</strong> (Mosquitto) relays all messages between the components.</li>
+<li>The <strong>control unit</strong> observes the whole system and forwards the operator's commands (start mission, recall, emergency closure, alarm reset) to the devices, which may refuse them.</li>
+<li>The <strong>dashboard</strong> shows the real-time state of the drone and the hangar, and lets the operator issue commands.</li>
+</ul>
+</li>
+</ul>
+<p>Drone and hangar coordinate directly through the broker: the backend supervises the system but is not involved in safety-critical decisions, so the two devices keep working even if it is unavailable.</p>
+<pre class="mermaid"><code>flowchart LR
+  subgraph Edge
+    D[Drone unit&lt;br/&gt;Pico 2 W]
+    H[Hangar unit&lt;br/&gt;Pico 2 W]
+  end
+  subgraph Backend [Backend - PC]
+    B[(MQTT broker&lt;br/&gt;Mosquitto)]
+    C[Control unit&lt;br/&gt;Node-RED]
+    UI[Dashboard&lt;br/&gt;Node-RED]
+  end
+  O((Operator))
+
+  D &lt;--&gt;|MQTT| B
+  H &lt;--&gt;|MQTT| B
+  C &lt;--&gt;|MQTT| B
+  C --&gt; UI
+  O --&gt; UI</code></pre>
+<h2 id="architectural-style">Architectural style<a class="headerlink" href="#architectural-style" title="Permanent link">&para;</a></h2>
+<p>The system follows a <strong>publish/subscribe</strong> architecture built around a central MQTT broker. Components never address each other directly: each one publishes messages on topics and subscribes to the topics it is interested in.</p>
+<p>This style fits the system for three reasons:</p>
+<ul>
+<li><strong>Decoupling</strong>: drone and hangar do not need to know each other's network address, and a device can be replaced by a software simulator without changing the others.</li>
+<li><strong>Many-to-many communication</strong>: the same message reaches every interested component. The control unit and the dashboard observe all the traffic without the devices being aware of them.</li>
+<li><strong>Broker features</strong>: retained messages give a late subscriber the last known state of each device, and the Last Will mechanism notifies everyone when a device disconnects unexpectedly.</li>
+</ul>
+<p>MQTT has no native request/response interaction, which the take-off and landing requests need. It is built on top of publish/subscribe with dedicated request and response topics, correlated by a request identifier and bounded by timeouts (see <a href="../protocol/">Protocol</a>).</p>
+<h2 id="distribution-of-control">Distribution of control<a class="headerlink" href="#distribution-of-control" title="Permanent link">&para;</a></h2>
+<p>Safety-critical decisions are taken <strong>at the edge, by the hangar</strong>: opening the door, authenticating the drone, and granting
+or denying take-off and landing. The hangar evaluates every request against its own sensor readings, and it does not need the
+backend to do so.</p>
+<p>The <strong>backend only supervises</strong>. Commands are requests, not orders: each device checks them against its current state and
+may refuse them with a reason.</p>
+<p>As a consequence, drone and hangar keep coordinating directly through the broker even when the control unit or the dashboard 
+are unavailable. Only monitoring and manual commands are lost. If the broker itself fails, no mission can start or end, 
+but the hangar keeps the door closed and the drone holds its position until the connection is restored.</p>
+<h2 id="technology-choices">Technology choices<a class="headerlink" href="#technology-choices" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Decision</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MQTT</td>
+<td><strong>Adopted</strong></td>
+<td>Publish/subscribe with a broker, QoS levels, retained messages and Last Will cover the needs of the system. It crosses firewalls, since every component acts as a client of the broker.</td>
+</tr>
+<tr>
+<td>CoAP</td>
+<td>Rejected</td>
+<td>It offers native request/response with confirmable messages, but no publish/subscribe and no broker: the control unit would have to know and poll each device. It would also lose retained state and Last Will. It is designed for low-power, lossy networks, which is not the case here.</td>
+</tr>
+<tr>
+<td>Thread / Matter</td>
+<td>Rejected</td>
+<td>Thread requires an IEEE 802.15.4 radio, which the Pico 2 W does not have (its radio supports only Wi-Fi and Bluetooth). Matter targets interoperability between smart-home products; its SDK is heavy and it adds nothing for a two-device industrial prototype.</td>
+</tr>
+<tr>
+<td>Wi-Fi</td>
+<td><strong>Adopted</strong></td>
+<td>Built into the Pico 2 W and supports TCP/IP directly. Its limits (range of about 150 m, high power consumption) are acceptable for a prototype; a real system would use a cellular or long-range radio link.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<p>MQTT provides little security by itself, so it is added at two levels.</p>
+<p><strong>Broker level</strong></p>
+<ul>
+<li>Anonymous access is disabled: every client authenticates to the broker with its own username and password.</li>
+<li>Access control lists (ACLs) restrict each client to the topics required by its role, so a client cannot impersonate another one:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Can publish</th>
+<th>Can subscribe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hangar</code></td>
+<td><code>dib/hangar/#</code></td>
+<td><code>dib/drone/#</code>, <code>dib/cmd/hangar</code></td>
+</tr>
+<tr>
+<td><code>drone</code></td>
+<td><code>dib/drone/#</code></td>
+<td><code>dib/hangar/#</code>, <code>dib/cmd/drone</code></td>
+</tr>
+<tr>
+<td><code>controlunit</code></td>
+<td><code>dib/cmd/#</code></td>
+<td><code>dib/#</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Application level</strong></p>
+<p>Before evaluating a landing request, the hangar authenticates the drone with an HMAC-based challenge-response that resists replay attacks (see <a href="../protocol/">Protocol</a>).</p>
+<p><strong>Known limitation:</strong> traffic is not encrypted (no TLS), so credentials travel in clear text on the local network. This is accepted for a prototype on an isolated network and listed among the future improvements.</p>
+<h2 id="deployment-view">Deployment view<a class="headerlink" href="#deployment-view" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+  subgraph PC [PC - Docker]
+    B[(Mosquitto&lt;br/&gt;port 1883)]
+    N[Node-RED&lt;br/&gt;control unit + dashboard&lt;br/&gt;port 1880]
+  end
+  D[Drone unit&lt;br/&gt;Pico 2 W]
+  H[Hangar unit&lt;br/&gt;Pico 2 W]
+  O((Operator&lt;br/&gt;browser))
+
+  D &lt;--&gt;|Wi-Fi| B
+  H &lt;--&gt;|Wi-Fi| B
+  N &lt;--&gt; B
+  O --&gt;|HTTP| N</code></pre>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Runs on</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MQTT broker</td>
+<td>PC, Docker container</td>
+<td>Exposed on port 1883 to the local network.</td>
+</tr>
+<tr>
+<td>Control unit and dashboard</td>
+<td>PC, Node-RED container</td>
+<td>Reaches the broker through the Docker network; dashboard on port 1880.</td>
+</tr>
+<tr>
+<td>Hangar unit</td>
+<td>Raspberry Pi Pico 2 W</td>
+<td>Connects to the broker over Wi-Fi using the PC's LAN address.</td>
+</tr>
+<tr>
+<td>Drone unit</td>
+<td>Raspberry Pi Pico 2 W</td>
+<td>Same as the hangar.</td>
+</tr>
+<tr>
+<td>Simulators (testing only)</td>
+<td>PC, Python</td>
+<td>Can replace either device, using the same protocol.</td>
+</tr>
+</tbody>
+</table>
+<p>All components must be on the same local network.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

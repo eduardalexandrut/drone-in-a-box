@@ -1,0 +1,1750 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Distributed Edge-to-Cloud IoT System Documentation">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../architecture/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Analysis - Drone-in-a-Box System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#analysis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Drone-in-a-Box System" class="md-header__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Drone-in-a-Box System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Drone-in-a-Box System" class="md-nav__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Drone-in-a-Box System
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-project-goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Project goal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Project goal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-what-is-real-and-what-is-simulated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 What is real and what is simulated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Functional requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-non-functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Non-functional requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-domain-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Domain model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Domain model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Glossary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Use cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Use cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-actors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Actors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-use-case-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Use case overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-main-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Main scenarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Edge cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../behaviour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Behaviour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/hangar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/drone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend and dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/simulators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-project-goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Project goal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Project goal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-what-is-real-and-what-is-simulated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 What is real and what is simulated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Functional requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-non-functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Non-functional requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-domain-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Domain model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Domain model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Glossary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Use cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Use cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-actors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Actors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-use-case-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Use case overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-main-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Main scenarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Edge cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h1>
+<h2 id="1-project-goal">1. Project goal<a class="headerlink" href="#1-project-goal" title="Permanent link">&para;</a></h2>
+<p>The goal of the project is to build a working prototype of a <strong>Drone-in-a-Box (DIB)</strong> system: an autonomous drone that lives in a ground station (the <em>hangar</em>), leaves it to perform automated industrial inspections (e.g. thermographic monitoring of a photovoltaic plant) and comes back to recharge, without a human pilot.</p>
+<p>The prototype focuses on the <strong>coordination and safety logic</strong> between the drone and the hangar, rather than on real flight:</p>
+<ul>
+<li>the <strong>hangar</strong> is a physical device that controls its door, monitors the local environment and decides autonomously whether a take-off or a landing is safe;</li>
+<li>the <strong>drone</strong> is a physical board that <em>simulates</em> a flight and streams realistic telemetry;</li>
+<li>a <strong>central backend</strong> supervises the whole system, shows its live state on a dashboard and lets an operator issue commands.
+  The three subsystems are independent and communicate only through messages, following a publish/subscribe architecture.</li>
+</ul>
+<h3 id="11-what-is-real-and-what-is-simulated">1.1 What is real and what is simulated<a class="headerlink" href="#11-what-is-real-and-what-is-simulated" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Real</th>
+<th>Simulated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hangar door</td>
+<td>servo motor</td>
+<td>–</td>
+</tr>
+<tr>
+<td>Environmental data</td>
+<td>temperature, humidity and water/steam sensors</td>
+<td>– (can be injected for tests)</td>
+</tr>
+<tr>
+<td>Status indicators</td>
+<td>LEDs and display</td>
+<td>–</td>
+</tr>
+<tr>
+<td>Drone presence</td>
+<td>infrared sensor inside the hangar</td>
+<td>–</td>
+</tr>
+<tr>
+<td>Drone flight</td>
+<td>–</td>
+<td>speed, acceleration, altitude, ground distance, distance from the hangar, mission progress. The board is physically moved in and out of the hangar during take-off and landing</td>
+</tr>
+<tr>
+<td>Drone battery</td>
+<td>–</td>
+<td>charge and discharge model</td>
+</tr>
+<tr>
+<td>Drone attitude (tilt)</td>
+<td>tilt sensor, if available in the kit</td>
+<td>roll/pitch angles otherwise</td>
+</tr>
+<tr>
+<td>Communication</td>
+<td>Wi-Fi + MQTT between real devices</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-requirements">2. Requirements<a class="headerlink" href="#2-requirements" title="Permanent link">&para;</a></h2>
+<p>Requirements are numbered so that they can be traced to the design and to the tests.</p>
+<h3 id="21-functional-requirements">2.1 Functional requirements<a class="headerlink" href="#21-functional-requirements" title="Permanent link">&para;</a></h3>
+<p><strong>Hangar</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-H1</td>
+<td>The hangar shall open and close its door on its own decision, moving it gradually.</td>
+</tr>
+<tr>
+<td>FR-H2</td>
+<td>The hangar shall periodically sample temperature and humidity.</td>
+</tr>
+<tr>
+<td>FR-H3</td>
+<td>The hangar shall classify the environment as <em>safe</em> or <em>unsafe</em> according to configurable thresholds, and report the reason when unsafe.</td>
+</tr>
+<tr>
+<td>FR-H4</td>
+<td>The hangar shall evaluate every take-off request and grant it only if the environment is safe and the presence sensor detects the drone inside.</td>
+</tr>
+<tr>
+<td>FR-H5</td>
+<td>The hangar shall authenticate the drone before evaluating a landing request.</td>
+</tr>
+<tr>
+<td>FR-H6</td>
+<td>The hangar shall evaluate every landing request and grant it only if the drone is authenticated, the environment is safe and the drone is stable (tilt and speed within limits).</td>
+</tr>
+<tr>
+<td>FR-H7</td>
+<td>The hangar shall notify a grant only when the door is fully open, and close the door once the drone has left or landed.</td>
+</tr>
+<tr>
+<td>FR-H8</td>
+<td>Every denial shall carry a machine-readable reason.</td>
+</tr>
+<tr>
+<td>FR-H9</td>
+<td>The hangar shall show its current state through LEDs and display.</td>
+</tr>
+<tr>
+<td>FR-H10</td>
+<td>The hangar shall publish its state, door position and environmental data.</td>
+</tr>
+<tr>
+<td>FR-H11</td>
+<td>The hangar shall allow resetting the alarm locally, through a button, when the backend is not available.</td>
+</tr>
+<tr>
+<td>FR-H12</td>
+<td>The hangar shall detect whether the drone is physically inside, through a presence sensor.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Drone</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D1</td>
+<td>While at rest in the hangar, the drone shall recharge its (simulated) battery.</td>
+</tr>
+<tr>
+<td>FR-D2</td>
+<td>The drone shall request permission before taking off and before landing, and act only after a grant.</td>
+</tr>
+<tr>
+<td>FR-D3</td>
+<td>The drone shall simulate a mission as a sequence of segments, and report its progress.</td>
+</tr>
+<tr>
+<td>FR-D4</td>
+<td>The drone shall simulate and publish telemetry: battery level, speed, acceleration, altitude, ground distance, distance from the hangar, tilt and error state.</td>
+</tr>
+<tr>
+<td>FR-D5</td>
+<td>The drone shall return to the hangar when the mission is complete, when the battery falls below a return threshold, or when recalled by the operator.</td>
+</tr>
+<tr>
+<td>FR-D6</td>
+<td>If a landing is denied, the drone shall hold its position and retry periodically.</td>
+</tr>
+<tr>
+<td>FR-D7</td>
+<td>The drone shall enter an emergency state on critical anomalies (excessive tilt, critical battery, internal fault).</td>
+</tr>
+<tr>
+<td>FR-D8</td>
+<td>The drone shall answer the hangar's authentication challenge.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Backend and dashboard</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-B1</td>
+<td>The backend shall collect the state and data published by the hangar and the drone.</td>
+</tr>
+<tr>
+<td>FR-B2</td>
+<td>The dashboard shall show, in real time, the hangar state, door state and environmental data (with recent history).</td>
+</tr>
+<tr>
+<td>FR-B3</td>
+<td>The dashboard shall show, in real time, the drone state, battery, kinematics, distance from the hangar, tilt, mission progress and errors.</td>
+</tr>
+<tr>
+<td>FR-B4</td>
+<td>The dashboard shall show whether each device is online or offline.</td>
+</tr>
+<tr>
+<td>FR-B5</td>
+<td>The dashboard shall keep a log of state transitions, requests and decisions.</td>
+</tr>
+<tr>
+<td>FR-B6</td>
+<td>The operator shall be able to start a mission, recall the drone, trigger an emergency door closure and reset an alarm.</td>
+</tr>
+<tr>
+<td>FR-B7</td>
+<td>Operator commands are requests: the devices may refuse them, and every refusal shall be reported with a reason.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-non-functional-requirements">2.2 Non-functional requirements<a class="headerlink" href="#22-non-functional-requirements" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Category</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-1</td>
+<td>Safety</td>
+<td>Safety-critical decisions (opening the door, granting take-off or landing) shall be taken locally by the hangar and shall not depend on the backend being available.</td>
+</tr>
+<tr>
+<td>NFR-2</td>
+<td>Safety</td>
+<td>When communication with the drone is lost during an operation, the hangar shall move to a safe state.</td>
+</tr>
+<tr>
+<td>NFR-3</td>
+<td>Reliability</td>
+<td>Every request shall be answered or time out; no device shall wait forever.</td>
+</tr>
+<tr>
+<td>NFR-4</td>
+<td>Reliability</td>
+<td>Devices shall reconnect automatically after a Wi-Fi or broker outage and keep working autonomously while disconnected.</td>
+</tr>
+<tr>
+<td>NFR-5</td>
+<td>Reliability</td>
+<td>The disconnection of a device shall be detected by the others and by the backend.</td>
+</tr>
+<tr>
+<td>NFR-6</td>
+<td>Responsiveness</td>
+<td>The hangar shall react to a request within 500 ms (excluding the door movement).</td>
+</tr>
+<tr>
+<td>NFR-7</td>
+<td>Responsiveness</td>
+<td>The dashboard shall show telemetry with a delay of at most 2 s.</td>
+</tr>
+<tr>
+<td>NFR-8</td>
+<td>Security</td>
+<td>Every client shall authenticate to the message broker; anonymous access shall be disabled.</td>
+</tr>
+<tr>
+<td>NFR-9</td>
+<td>Security</td>
+<td>Each client shall be allowed to publish and subscribe only to the topics required by its role.</td>
+</tr>
+<tr>
+<td>NFR-10</td>
+<td>Security</td>
+<td>The drone authentication shall resist replay of previously captured messages.</td>
+</tr>
+<tr>
+<td>NFR-11</td>
+<td>Maintainability</td>
+<td>The control logic shall be independent of the hardware, so that it can be tested on a PC.</td>
+</tr>
+<tr>
+<td>NFR-12</td>
+<td>Testability</td>
+<td>Each device shall be replaceable by a software simulator implementing the same protocol.</td>
+</tr>
+<tr>
+<td>NFR-13</td>
+<td>Extensibility</td>
+<td>The message format and topic structure shall allow adding more drones or hangars in the future.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-constraints">2.3 Constraints<a class="headerlink" href="#23-constraints" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Hardware: 2 × Raspberry Pi Pico 2 W, 9 g servo motor, environmental sensors, LEDs and display (Keyestudio-style kit).</li>
+<li>Communication: MQTT over Wi-Fi (TCP/IP).</li>
+<li>Firmware language: C++.</li>
+<li>Backend: runs on a PC (broker, supervision logic, dashboard).</li>
+</ul>
+<h2 id="3-domain-model">3. Domain model<a class="headerlink" href="#3-domain-model" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>classDiagram
+  direction LR
+
+  class Hangar {
+    id
+    state
+    environmentSafe
+  }
+  class Door {
+    state: CLOSED | OPENING | OPEN | CLOSING
+    position %
+  }
+  class EnvironmentReading {
+    temperature °C
+    humidity %
+    waterDetected
+    timestamp
+  }
+  class SafetyPolicy {
+    thresholds
+    evaluate(reading) safe, reason
+  }
+  class Drone {
+    id
+    state
+    insideHangar
+  }
+  class Battery {
+    level %
+    charging
+  }
+  class Telemetry {
+    speed m/s
+    acceleration m/s²
+    altitude m
+    groundDistance m
+    distanceFromHangar m
+    tilt roll, pitch °
+    errorCode
+    timestamp
+  }
+  class Mission {
+    id
+    segments
+    progress %
+  }
+  class Request {
+    reqId
+    type: TAKEOFF | LANDING
+    timestamp
+  }
+  class Decision {
+    reqId
+    granted
+    reason
+  }
+  class Credentials {
+    droneId
+    sharedKey
+  }
+  class Operator
+  class Command {
+    type: START_MISSION | RECALL | EMERGENCY_CLOSE | RESET_ALARM
+    target
+  }
+  class SupervisionUnit
+
+  Hangar "1" *-- "1" Door
+  Hangar "1" --&gt; "*" EnvironmentReading : samples
+  Hangar "1" --&gt; "1" SafetyPolicy : applies
+  Hangar "1" o-- "0..1" Drone : hosts
+  Drone "1" *-- "1" Battery
+  Drone "1" --&gt; "*" Telemetry : produces
+  Drone "1" --&gt; "0..1" Mission : executes
+  Drone "1" --&gt; "*" Request : sends
+  Drone "1" *-- "1" Credentials
+  Request "1" -- "1" Decision : answered by
+  Hangar "1" --&gt; "*" Decision : takes
+  Operator "1" --&gt; "*" Command : issues
+  SupervisionUnit "1" --&gt; "*" Command : forwards
+  SupervisionUnit ..&gt; Hangar : observes
+  SupervisionUnit ..&gt; Drone : observes</code></pre>
+<h3 id="31-glossary">3.1 Glossary<a class="headerlink" href="#31-glossary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hangar</td>
+<td>Ground station that hosts, protects and recharges the drone.</td>
+</tr>
+<tr>
+<td>Door</td>
+<td>Movable cover of the hangar, driven by a servo motor.</td>
+</tr>
+<tr>
+<td>Environment reading</td>
+<td>One sample of temperature, humidity and water/steam presence.</td>
+</tr>
+<tr>
+<td>Safety policy</td>
+<td>Set of thresholds that classifies the environment as safe or unsafe.</td>
+</tr>
+<tr>
+<td>Mission</td>
+<td>A flight made of consecutive segments; its progress is the travelled fraction of the total length.</td>
+</tr>
+<tr>
+<td>Request</td>
+<td>A take-off or landing request sent by the drone; identified by a <code>reqId</code>.</td>
+</tr>
+<tr>
+<td>Decision</td>
+<td>The hangar's answer to a request: granted or denied, with a reason.</td>
+</tr>
+<tr>
+<td>Challenge</td>
+<td>Random value (nonce) sent by the hangar that the drone must sign to prove its identity.</td>
+</tr>
+<tr>
+<td>Holding</td>
+<td>The drone hovering near the hangar while waiting for a landing grant.</td>
+</tr>
+<tr>
+<td>Supervision unit</td>
+<td>Backend component that observes the system and forwards operator commands.</td>
+</tr>
+<tr>
+<td>Operator</td>
+<td>Human user of the dashboard.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-use-cases">4. Use cases<a class="headerlink" href="#4-use-cases" title="Permanent link">&para;</a></h2>
+<h3 id="41-actors">4.1 Actors<a class="headerlink" href="#41-actors" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Operator</strong>: monitors the system and issues commands from the dashboard.</li>
+<li><strong>Drone</strong>: autonomous actor that requests take-off and landing.</li>
+<li><strong>Hangar</strong>: autonomous actor that decides on requests and controls the door.</li>
+<li><strong>Environment</strong>: external source of weather conditions (time, temperature, humidity, rain).</li>
+</ul>
+<h3 id="42-use-case-overview">4.2 Use case overview<a class="headerlink" href="#42-use-case-overview" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Use case</th>
+<th>Primary actor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UC-1</td>
+<td>Monitor the system</td>
+<td>Operator</td>
+</tr>
+<tr>
+<td>UC-2</td>
+<td>Start a mission</td>
+<td>Operator</td>
+</tr>
+<tr>
+<td>UC-3</td>
+<td>Take off</td>
+<td>Drone</td>
+</tr>
+<tr>
+<td>UC-4</td>
+<td>Execute a mission</td>
+<td>Drone</td>
+</tr>
+<tr>
+<td>UC-5</td>
+<td>Return and land</td>
+<td>Drone</td>
+</tr>
+<tr>
+<td>UC-6</td>
+<td>Recall the drone</td>
+<td>Operator</td>
+</tr>
+<tr>
+<td>UC-7</td>
+<td>Emergency door closure</td>
+<td>Operator</td>
+</tr>
+<tr>
+<td>UC-8</td>
+<td>Reset an alarm</td>
+<td>Operator</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-main-scenarios">4.3 Main scenarios<a class="headerlink" href="#43-main-scenarios" title="Permanent link">&para;</a></h3>
+<p><strong>UC-1 Monitor the system</strong></p>
+<ol>
+<li>The operator opens the dashboard.</li>
+<li>The dashboard shows the latest known state of hangar and drone, even if they published it before the dashboard was opened.</li>
+<li>The dashboard updates state, environment and telemetry as new data arrives, and logs every transition and decision.</li>
+<li>If a device goes offline, the dashboard marks it as offline.
+   <strong>UC-2 Start a mission</strong></li>
+</ol>
+<p><em>Precondition:</em> the drone is at rest inside the hangar.</p>
+<ol>
+<li>The operator presses <em>Start mission</em>.</li>
+<li>The supervision unit forwards the command to the drone.</li>
+<li>The drone checks that its battery is above the minimum take-off level.</li>
+<li>The drone starts UC-3.
+   <em>Alternative 3a:</em> the battery is too low → the drone refuses the command with reason <code>BATTERY_LOW</code>; the dashboard shows the refusal.</li>
+</ol>
+<p><strong>UC-3 Take off</strong></p>
+<p><em>Precondition:</em> the drone is at rest inside the hangar, the door is closed.</p>
+<ol>
+<li>The drone sends a take-off request.</li>
+<li>The hangar evaluates the environment: it is safe.</li>
+<li>The hangar opens the door.</li>
+<li>When the door is fully open, the hangar grants the take-off.</li>
+<li>The drone leaves the hangar and climbs to cruise altitude.</li>
+<li>The drone notifies that it has left; the hangar closes the door.</li>
+<li>The drone is in mission (UC-4).
+   <em>Alternative 2a:</em> the environment is unsafe → the hangar denies the request with the reason (e.g. <code>HUMIDITY_HIGH</code>, <code>WATER_DETECTED</code>); the door stays closed; the drone stays at rest.</li>
+</ol>
+<p><em>Alternative 1a:</em> the hangar does not answer within the timeout → the drone gives up and stays at rest, reporting <code>NO_RESPONSE</code>.</p>
+<p><strong>UC-4 Execute a mission</strong></p>
+<ol>
+<li>The drone flies the mission segments, accelerating and decelerating on each one.</li>
+<li>The drone publishes telemetry and mission progress periodically.</li>
+<li>When the last segment is completed, the drone starts UC-5.
+   <em>Alternative 1a:</em> the battery falls below the return threshold → the drone interrupts the mission and starts UC-5.
+   <em>Alternative 1b:</em> a critical anomaly occurs (excessive tilt, fault) → the drone enters the emergency state and reports it.</li>
+</ol>
+<p><strong>UC-5 Return and land</strong></p>
+<ol>
+<li>The drone flies back towards the hangar.</li>
+<li>When it is close enough, the drone sends a landing request.</li>
+<li>The hangar sends an authentication challenge.</li>
+<li>The drone answers the challenge; the hangar verifies it.</li>
+<li>The hangar checks environment and drone stability: both are fine.</li>
+<li>The hangar opens the door; when it is fully open, it grants the landing.</li>
+<li>The drone descends and notifies that it has landed.</li>
+<li>The hangar closes the door; the drone is at rest and starts recharging.
+   <em>Alternative 4a:</em> authentication fails → the hangar denies the landing with reason <code>AUTH_FAILED</code>; the door stays closed.
+   <em>Alternative 5a:</em> environment unsafe or drone unstable → the hangar denies the landing with the reason; the drone holds its position and retries periodically (back to step 2).</li>
+</ol>
+<p><strong>UC-6 Recall the drone</strong></p>
+<p><em>Precondition:</em> the drone is in mission.</p>
+<ol>
+<li>The operator presses <em>Recall</em>.</li>
+<li>The drone interrupts the mission and starts UC-5.
+   <em>Alternative 2a:</em> the drone is not in mission → the command is refused with reason <code>INVALID_STATE</code>.</li>
+</ol>
+<p><strong>UC-7 Emergency door closure</strong></p>
+<ol>
+<li>The operator presses <em>Emergency close</em>.</li>
+<li>The hangar closes the door and enters the alarm state; it denies new requests until reset.
+   <em>Alternative 2a:</em> the drone is passing through the door (taking off or landing) → see edge case EC-15.</li>
+</ol>
+<p><strong>UC-8 Reset an alarm</strong></p>
+<ol>
+<li>The operator presses <em>Reset alarm</em>.</li>
+<li>If the cause of the alarm is no longer present, the hangar leaves the alarm state; otherwise it refuses with the cause as reason.</li>
+</ol>
+<h2 id="5-edge-cases">5. Edge cases<a class="headerlink" href="#5-edge-cases" title="Permanent link">&para;</a></h2>
+<p>Edge cases describe situations outside the main scenarios and the expected behaviour of the system. Each one becomes at 
+least one test scenario.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Situation</th>
+<th>Expected behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EC-1</td>
+<td>The environment becomes unsafe while the door is open for a take-off, before the drone has left.</td>
+<td>The take-off already granted is completed (aborting halfway is more dangerous); the hangar closes the door right after and denies new requests.</td>
+</tr>
+<tr>
+<td>EC-2</td>
+<td>After a take-off grant, the drone never reports that it has left.</td>
+<td>After a timeout the hangar closes the door only if the drone is confirmed inside or offline, and raises an alarm.</td>
+</tr>
+<tr>
+<td>EC-3</td>
+<td>The drone loses connection while landing (door open).</td>
+<td>The hangar detects the disconnection, waits for a grace period, then closes the door and raises an alarm.</td>
+</tr>
+<tr>
+<td>EC-4</td>
+<td>The hangar loses connection while the drone is in mission.</td>
+<td>The drone completes its mission; landing requests time out, so the drone holds and retries until the hangar is back or the battery becomes critical (EC-6).</td>
+</tr>
+<tr>
+<td>EC-5</td>
+<td>The backend is not available.</td>
+<td>Drone and hangar keep coordinating directly; only monitoring and operator commands are lost.</td>
+</tr>
+<tr>
+<td>EC-6</td>
+<td>A device that is not the registered drone, or uses a wrong key, requests a landing.</td>
+<td>Authentication fails; the landing is denied with <code>AUTH_FAILED</code>; the door stays closed.</td>
+</tr>
+<tr>
+<td>EC-7</td>
+<td>A previously captured authentication answer is sent again (replay).</td>
+<td>The answer does not match the new challenge; authentication fails.</td>
+</tr>
+<tr>
+<td>EC-8</td>
+<td>A message is duplicated, or an answer arrives for an old request.</td>
+<td>Answers are matched by <code>reqId</code>; answers for unknown or expired requests are ignored.</td>
+</tr>
+<tr>
+<td>EC-9</td>
+<td>An operator command is not valid in the current state (e.g. <em>Start mission</em> while in mission).</td>
+<td>The command is refused with <code>INVALID_STATE</code>; the state does not change.</td>
+</tr>
+<tr>
+<td>EC-10</td>
+<td>The broker restarts, or the dashboard connects after the devices.</td>
+<td>The dashboard receives the last known state of each device as soon as it subscribes.</td>
+</tr>
+<tr>
+<td>EC-11</td>
+<td>The hangar reboots while the drone is in mission.</td>
+<td>At start-up the hangar assumes the door must be closed and the drone outside unless the drone's last published state says otherwise.</td>
+</tr>
+<tr>
+<td>EC-12</td>
+<td>An emergency closure is requested while the drone is passing through the door.</td>
+<td>The hangar completes the passage before closing (it does not close the door onto the drone), then enters the alarm state.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

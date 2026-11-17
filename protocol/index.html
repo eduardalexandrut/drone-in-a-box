@@ -1,0 +1,1702 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Distributed Edge-to-Cloud IoT System Documentation">
+      
+      
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../behaviour/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Protocol - Drone-in-a-Box System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#protocol" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Drone-in-a-Box System" class="md-header__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Drone-in-a-Box System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Protocol
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Drone-in-a-Box System" class="md-nav__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Drone-in-a-Box System
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#topic-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topic structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Topic structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hangar-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hangar topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drone-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drone topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-unit-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control unit topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topic-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topic descriptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Message format
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Message format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-and-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State and status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requests-dibdronerequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requests (dib/drone/request)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responses-dibhangarresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responses (dib/hangar/response)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands-and-replies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands and replies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requestresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request/response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-handshake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication handshake
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#denial-reasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Denial reasons
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Denial reasons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#take-off-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Take-off request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#landing-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landing request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeouts-on-the-drone-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeouts on the drone side
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../behaviour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Behaviour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/hangar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/drone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend and dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/simulators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#topic-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topic structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Topic structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hangar-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hangar topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drone-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drone topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-unit-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control unit topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#topic-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topic descriptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Message format
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Message format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-and-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State and status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requests-dibdronerequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requests (dib/drone/request)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responses-dibhangarresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responses (dib/hangar/response)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands-and-replies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands and replies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requestresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request/response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-handshake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication handshake
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#denial-reasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Denial reasons
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Denial reasons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#take-off-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Take-off request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#landing-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landing request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeouts-on-the-drone-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeouts on the drone side
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="protocol">Protocol<a class="headerlink" href="#protocol" title="Permanent link">&para;</a></h1>
+<h2 id="topic-structure">Topic structure<a class="headerlink" href="#topic-structure" title="Permanent link">&para;</a></h2>
+<p>All topics start with <code>dib/</code> and follow the pattern <code>dib/&lt;device&gt;/&lt;kind&gt;</code>. Topics are grouped below by publisher.</p>
+<h3 id="hangar-topics">Hangar topics<a class="headerlink" href="#hangar-topics" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Subscriber</th>
+<th>QoS</th>
+<th>Retained</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dib/hangar/state</code></td>
+<td>control unit</td>
+<td>1</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>dib/hangar/door</code></td>
+<td>control unit</td>
+<td>0</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>dib/hangar/environment</code></td>
+<td>control unit</td>
+<td>0</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>dib/hangar/response</code></td>
+<td>drone, control unit</td>
+<td>1</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>dib/hangar/cmd-reply</code></td>
+<td>control unit</td>
+<td>1</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>dib/hangar/status</code></td>
+<td>drone, control unit</td>
+<td>1</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="drone-topics">Drone topics<a class="headerlink" href="#drone-topics" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Subscriber</th>
+<th>QoS</th>
+<th>Retained</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dib/drone/state</code></td>
+<td>hangar, control unit</td>
+<td>1</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>dib/drone/telemetry</code></td>
+<td>control unit</td>
+<td>0</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>dib/drone/request</code></td>
+<td>hangar, control unit</td>
+<td>1</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>dib/drone/cmd-reply</code></td>
+<td>control unit</td>
+<td>1</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>dib/drone/status</code></td>
+<td>hangar, control unit</td>
+<td>1</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="control-unit-topics">Control unit topics<a class="headerlink" href="#control-unit-topics" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Subscriber</th>
+<th>QoS</th>
+<th>Retained</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dib/cmd/drone</code></td>
+<td>drone</td>
+<td>1</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>dib/cmd/hangar</code></td>
+<td>hangar</td>
+<td>1</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h3 id="topic-descriptions">Topic descriptions<a class="headerlink" href="#topic-descriptions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>state</code></td>
+<td>Current state of the device's main state machine.</td>
+</tr>
+<tr>
+<td><code>door</code></td>
+<td>Door state (<code>CLOSED</code>, <code>OPENING</code>, <code>OPEN</code>, <code>CLOSING</code>) and position in %.</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td>Temperature, humidity, water/steam detection and the safe/unsafe classification with its reason.</td>
+</tr>
+<tr>
+<td><code>telemetry</code></td>
+<td>Battery, speed, acceleration, altitude, ground distance, distance from the hangar, tilt, mission progress, error code.</td>
+</tr>
+<tr>
+<td><code>request</code></td>
+<td>Messages from the drone to the hangar: <code>TAKEOFF_REQ</code>, <code>LANDING_REQ</code>, <code>AUTH_RESPONSE</code>.</td>
+</tr>
+<tr>
+<td><code>response</code></td>
+<td>Messages from the hangar to the drone: <code>CHALLENGE</code>, <code>GRANTED</code>, <code>DENIED</code>.</td>
+</tr>
+<tr>
+<td><code>cmd</code></td>
+<td>Operator commands forwarded by the control unit.</td>
+</tr>
+<tr>
+<td><code>cmd-reply</code></td>
+<td>Result of a command: accepted, or refused with a reason.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>online</code> when the device connects; <code>offline</code> published by the broker as the device's Last Will.</td>
+</tr>
+</tbody>
+</table>
+<p>The message type (e.g. <code>TAKEOFF_REQ</code> or <code>LANDING_REQ</code>) is a field of the JSON payload, not part of the topic name.</p>
+<h3 id="design-rules">Design rules<a class="headerlink" href="#design-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Retained</strong> messages are used for topics that describe the <em>current situation</em> (state, door, environment, status), so that a component connecting late immediately receives the last known value.</li>
+<li><strong>Non-retained</strong> messages are used for <em>events</em> (requests, responses, commands, replies): delivering an old request to a component that has just connected would make it look like a new one. Telemetry is not retained either, because it changes continuously.</li>
+<li><strong>QoS 1</strong> (at least once) is used where losing a message would block or confuse the system: states, requests, responses, commands. Duplicates are discarded thanks to the request identifier.</li>
+<li><strong>QoS 0</strong> (at most once) is used for periodically sampled data: if a sample is lost, the next one arrives shortly after.</li>
+</ul>
+<h2 id="message-format">Message format<a class="headerlink" href="#message-format" title="Permanent link">&para;</a></h2>
+<p>All messages are JSON objects with the same envelope:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKEOFF_REQ"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drone"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">128450</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3482</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>v</code></td>
+<td>integer</td>
+<td>Protocol version, currently <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>string</td>
+<td>Message type (see below).</td>
+</tr>
+<tr>
+<td><code>src</code></td>
+<td>string</td>
+<td>Sender: <code>drone</code>, <code>hangar</code> or <code>controlunit</code>.</td>
+</tr>
+<tr>
+<td><code>ts</code></td>
+<td>integer</td>
+<td>Sender's uptime in milliseconds. The Pico has no real-time clock, so the backend adds its own reception time for the log.</td>
+</tr>
+<tr>
+<td><code>reqId</code></td>
+<td>integer</td>
+<td>Only in requests, responses and commands: identifies the exchange (see <a href="#requestresponse">Request/response</a>).</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>object</td>
+<td>Type-specific content. Omitted when empty.</td>
+</tr>
+</tbody>
+</table>
+<p>Units are fixed: metres, metres per second, metres per second squared, degrees, degrees Celsius, percent.</p>
+<h3 id="state-and-status">State and status<a class="headerlink" href="#state-and-status" title="Permanent link">&para;</a></h3>
+<p><code>dib/hangar/state</code>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STATE"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hangar"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">90210</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALARM"</span><span class="p">,</span><span class="w"> </span><span class="nt">"cause"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRONE_OFFLINE"</span><span class="p">,</span><span class="w"> </span><span class="nt">"droneDetected"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<code>cause</code> is present only in the <code>ALARM</code> state. The message is published when the state changes and also when droneDetected changes.</p>
+<p><code>dib/drone/state</code>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STATE"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">90180</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN_MISSION"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<p><code>dib/&lt;device&gt;/status</code>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STATUS"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1520</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"online"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="data">Data<a class="headerlink" href="#data" title="Permanent link">&para;</a></h3>
+<p><code>dib/hangar/door</code>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOOR"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hangar"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">91050</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPENING"</span><span class="p">,</span><span class="w"> </span><span class="nt">"position"</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<p><code>dib/hangar/environment</code>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ENVIRONMENT"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hangar"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">92000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"temperature"</span><span class="p">:</span><span class="w"> </span><span class="mf">18.5</span><span class="p">,</span><span class="w"> </span><span class="nt">"humidity"</span><span class="p">:</span><span class="w"> </span><span class="mi">62</span><span class="p">,</span><span class="w"> </span><span class="nt">"safe"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<p><code>dib/drone/telemetry</code>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TELEMETRY"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">92300</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"battery"</span><span class="p">:</span><span class="w"> </span><span class="mi">74</span><span class="p">,</span><span class="w"> </span><span class="nt">"charging"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"speed"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.2</span><span class="p">,</span><span class="w"> </span><span class="nt">"acceleration"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"altitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">30.0</span><span class="p">,</span><span class="w"> </span><span class="nt">"groundDistance"</span><span class="p">:</span><span class="w"> </span><span class="mf">30.0</span><span class="p">,</span><span class="w"> </span><span class="nt">"distanceFromHangar"</span><span class="p">:</span><span class="w"> </span><span class="mf">112.5</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"roll"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.1</span><span class="p">,</span><span class="w"> </span><span class="nt">"pitch"</span><span class="p">:</span><span class="w"> </span><span class="mf">-1.4</span><span class="p">,</span><span class="w"> </span><span class="nt">"progress"</span><span class="p">:</span><span class="w"> </span><span class="mi">46</span><span class="p">,</span><span class="w"> </span><span class="nt">"segment"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">"segments"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="requests-dibdronerequest">Requests (<code>dib/drone/request</code>)<a class="headerlink" href="#requests-dibdronerequest" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAKEOFF_REQ"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">128450</span><span class="p">,</span><span class="w"> </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3482</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LANDING_REQ"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">412900</span><span class="p">,</span><span class="w"> </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3483</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUTH_RESPONSE"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">413050</span><span class="p">,</span><span class="w"> </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3483</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"hmac"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9f2c…e71a"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="responses-dibhangarresponse">Responses (<code>dib/hangar/response</code>)<a class="headerlink" href="#responses-dibhangarresponse" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CHALLENGE"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hangar"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">389120</span><span class="p">,</span><span class="w"> </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3483</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4be1a09c37d2f5e8b06a1c9d2e7f4a31"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GRANTED"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hangar"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">390800</span><span class="p">,</span><span class="w"> </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3483</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DENIED"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hangar"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">389200</span><span class="p">,</span><span class="w"> </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3483</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BAD_WEATHER"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="commands-and-replies">Commands and replies<a class="headerlink" href="#commands-and-replies" title="Permanent link">&para;</a></h3>
+<p><code>dib/cmd/drone</code>, <code>dib/cmd/hangar</code>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CMD"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"controlunit"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1731690000</span><span class="p">,</span><span class="w"> </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">57</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"START_MISSION"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+Commands: <code>START_MISSION</code>, <code>RECALL</code> (drone); <code>EMERGENCY_CLOSE</code>, <code>RESET_ALARM</code> (hangar).</p>
+<p><code>dib/&lt;device&gt;/cmd-reply</code>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CMD_REPLY"</span><span class="p">,</span><span class="w"> </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">95400</span><span class="p">,</span><span class="w"> </span><span class="nt">"reqId"</span><span class="p">:</span><span class="w"> </span><span class="mi">57</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"accepted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BATTERY_LOW"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<h2 id="requestresponse">Request/response<a class="headerlink" href="#requestresponse" title="Permanent link">&para;</a></h2>
+<p>MQTT has no request/response interaction, so it is built on top of publish/subscribe: requests travel on <code>dib/drone/request</code>, responses on <code>dib/hangar/response</code>, and the two are matched by the <code>reqId</code> field.</p>
+<p><strong>Request identifiers.</strong> The drone generates a new <code>reqId</code> for every take-off or landing request, from a counter initialised with a random value at boot, so that identifiers are not reused after a reboot. All the messages of one exchange carry the same <code>reqId</code>: a landing request, its challenge, the authentication response and the final decision.</p>
+<p><strong>Matching and duplicates.</strong></p>
+<ul>
+<li>The drone accepts only responses whose <code>reqId</code> matches its current request, and ignores all the others (old, duplicated or not addressed to it).</li>
+<li>The hangar processes one request at a time. A request that arrives while another one is in progress, or a duplicate of the current one, is ignored.</li>
+<li>Since every message is matched by <code>reqId</code>, receiving one twice (possible with QoS 1) has no effect.</li>
+</ul>
+<p><strong>Timeouts.</strong> Every wait is bounded, so no device waits forever:</p>
+<table>
+<thead>
+<tr>
+<th>Who waits</th>
+<th>For what</th>
+<th>Timeout</th>
+<th>On expiry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drone</td>
+<td><code>GRANTED</code> / <code>DENIED</code> after <code>TAKEOFF_REQ</code></td>
+<td>5 s</td>
+<td>back to <code>AT_REST</code>, reason <code>NO_RESPONSE</code></td>
+</tr>
+<tr>
+<td>Drone</td>
+<td><code>CHALLENGE</code> after <code>LANDING_REQ</code></td>
+<td>3 s</td>
+<td><code>HOLDING</code>, reason <code>NO_RESPONSE</code></td>
+</tr>
+<tr>
+<td>Drone</td>
+<td><code>GRANTED</code> / <code>DENIED</code> after <code>AUTH_RESPONSE</code></td>
+<td>5 s</td>
+<td><code>HOLDING</code>, reason <code>NO_RESPONSE</code></td>
+</tr>
+<tr>
+<td>Drone</td>
+<td>retry delay in <code>HOLDING</code></td>
+<td>10 s</td>
+<td>sends a new <code>LANDING_REQ</code></td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td><code>AUTH_RESPONSE</code> after <code>CHALLENGE</code></td>
+<td>3 s</td>
+<td><code>DENIED</code>, reason <code>AUTH_TIMEOUT</code></td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td>drone out after <code>GRANTED</code> (take-off)</td>
+<td>15 s</td>
+<td><code>ALARM</code>, cause <code>DEPARTURE_TIMEOUT</code></td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td>drone landed after <code>GRANTED</code> (landing)</td>
+<td>20 s</td>
+<td><code>ALARM</code>, cause <code>LANDING_TIMEOUT</code></td>
+</tr>
+</tbody>
+</table>
+<p>The drone's timeouts after a request are longer than the door movement (about 1.5 s), because the hangar sends <code>GRANTED</code> only when the door is fully open. The values are defaults and can be configured.</p>
+<h2 id="authentication-handshake">Authentication handshake<a class="headerlink" href="#authentication-handshake" title="Permanent link">&para;</a></h2>
+<p>Before evaluating a landing request, the hangar checks that the request really comes from the registered drone. Hangar and drone share a secret key; the drone proves it knows the key without ever sending it.</p>
+<pre class="mermaid"><code>sequenceDiagram
+  participant D as Drone
+  participant H as Hangar
+  D-&gt;&gt;H: LANDING_REQ (reqId)
+  Note over H: generate random nonce
+  H-&gt;&gt;D: CHALLENGE (reqId, nonce)
+  Note over D: hmac = HMAC-SHA256(key, message)
+  D-&gt;&gt;H: AUTH_RESPONSE (reqId, hmac)
+  Note over H: compute the same HMAC and compare
+  H-&gt;&gt;D: GRANTED or DENIED (reqId)</code></pre>
+<p><strong>Computation.</strong></p>
+<ul>
+<li><strong>Key:</strong> 32 random bytes, stored in a configuration header that is excluded from version control (<code>secrets.h</code>).</li>
+<li><strong>Nonce:</strong> 16 bytes from the hardware random number generator of the RP2350, sent as a lowercase hex string.</li>
+<li><strong>Message:</strong> the UTF-8 string <code>&lt;nonce&gt;|&lt;droneId&gt;|&lt;reqId&gt;</code>, e.g. <code>4be1a09c37d2f5e8b06a1c9d2e7f4a31|drone|3483</code>.</li>
+<li><strong>Answer:</strong> <code>HMAC-SHA256(key, message)</code>, sent as a lowercase hex string (64 characters).</li>
+</ul>
+<p><strong>Verification.</strong> The hangar computes the same HMAC and compares the two values in constant time, so the comparison time reveals nothing about the expected value. Each nonce allows a single attempt:</p>
+<ul>
+<li>match → the hangar evaluates the weather and grants or denies the landing;</li>
+<li>mismatch → <code>DENIED</code> with <code>AUTH_FAILED</code>;</li>
+<li>no answer within 3 s → <code>DENIED</code> with <code>AUTH_TIMEOUT</code>.</li>
+</ul>
+<p><strong>Why it resists replay.</strong> The nonce is new and random for every landing request, so a captured <code>AUTH_RESPONSE</code> matches only the challenge it was computed for. Sent again later, it is checked against a different nonce and fails (EC-8). Including <code>droneId</code> and <code>reqId</code> in the message ties the answer to one drone and one exchange.</p>
+<p><strong>Limitation.</strong> The key is shared and stored in both firmwares, so anyone who can read a device's flash can obtain it. This is acceptable for the prototype. A real system would use per-device keys in secure storage.</p>
+<h2 id="denial-reasons">Denial reasons<a class="headerlink" href="#denial-reasons" title="Permanent link">&para;</a></h2>
+<p>Every refusal carries a <code>reason</code> field with one of the following codes, so that the dashboard can show it and the tests can check it.</p>
+<h3 id="take-off-request">Take-off request<a class="headerlink" href="#take-off-request" title="Permanent link">&para;</a></h3>
+<p>Sent by the hangar in a <code>DENIED</code> message.</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BAD_WEATHER</code></td>
+<td>Humidity, temperature are above the safety threshold.</td>
+</tr>
+<tr>
+<td><code>ALARM_ACTIVE</code></td>
+<td>The hangar is in the alarm state and accepts no requests until reset.</td>
+</tr>
+<tr>
+<td><code>DRONE_NOT_PRESENT</code></td>
+<td>The presence sensor does not detect the drone inside the hangar.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="landing-request">Landing request<a class="headerlink" href="#landing-request" title="Permanent link">&para;</a></h3>
+<p>Sent by the hangar in a <code>DENIED</code> message. All the take-off codes also apply, plus:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AUTH_FAILED</code></td>
+<td>The answer to the challenge is wrong.</td>
+</tr>
+<tr>
+<td><code>AUTH_TIMEOUT</code></td>
+<td>The drone did not answer the challenge in time.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="timeouts-on-the-drone-side">Timeouts on the drone side<a class="headerlink" href="#timeouts-on-the-drone-side" title="Permanent link">&para;</a></h3>
+<p>Not sent by anyone: set by the drone when the hangar does not answer, and published in its telemetry.</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NO_RESPONSE</code></td>
+<td>No answer to a take-off or landing request within the timeout.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operator-commands">Operator commands<a class="headerlink" href="#operator-commands" title="Permanent link">&para;</a></h3>
+<p>Sent by the drone or the hangar in a <code>cmd-reply</code> message.</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INVALID_STATE</code></td>
+<td>The command is not accepted in the current state (e.g. <em>Recall</em> while at rest).</td>
+</tr>
+<tr>
+<td><code>BATTERY_LOW</code></td>
+<td><em>Start mission</em> refused: battery below the minimum take-off level.</td>
+</tr>
+<tr>
+<td><code>CAUSE_NOT_CLEARED</code></td>
+<td><em>Reset alarm</em> refused: the cause of the alarm is still present.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

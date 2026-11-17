@@ -1,0 +1,2062 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Distributed Edge-to-Cloud IoT System Documentation">
+      
+      
+      
+      
+        <link rel="prev" href="../protocol/">
+      
+      
+        <link rel="next" href="../design/control/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Behaviour - Drone-in-a-Box System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#behaviour" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Drone-in-a-Box System" class="md-header__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Drone-in-a-Box System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Behaviour
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Drone-in-a-Box System" class="md-nav__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Drone-in-a-Box System
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Behaviour
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Behaviour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-modelling-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Modelling approach
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Modelling approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-discrete-and-continuous-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Discrete and continuous components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-extended-fsms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Extended FSMs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-globally-asynchronous-locally-synchronous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Globally asynchronous, locally synchronous
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-moore-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Moore machines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Moore machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-the-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 The choice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-why-moore-and-not-mealy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Why Moore and not Mealy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-drone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Drone
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Drone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-flight-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Flight FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-anomaly-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Anomaly input
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-status-led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Status LED
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-hangar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Hangar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Hangar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-controller-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Controller FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-door-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Door FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-environment-monitor-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Environment monitor FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-presence-monitor-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Presence monitor FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-button-fsm-debouncing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Button FSM (debouncing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-status-indicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Status indicator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-interaction-between-drone-and-hangar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Interaction between drone and hangar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Interaction between drone and hangar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-take-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Take-off
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-landing-with-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Landing with authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-landing-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Landing denied
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tasks-and-periods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tasks and periods
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/hangar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/drone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend and dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/simulators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-modelling-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Modelling approach
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Modelling approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-discrete-and-continuous-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Discrete and continuous components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-extended-fsms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Extended FSMs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-globally-asynchronous-locally-synchronous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Globally asynchronous, locally synchronous
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-moore-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Moore machines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Moore machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-the-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 The choice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-why-moore-and-not-mealy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Why Moore and not Mealy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-drone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Drone
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Drone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-flight-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Flight FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-anomaly-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Anomaly input
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-status-led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Status LED
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-hangar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Hangar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Hangar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-controller-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Controller FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-door-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Door FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-environment-monitor-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Environment monitor FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-presence-monitor-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Presence monitor FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-button-fsm-debouncing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Button FSM (debouncing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-status-indicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Status indicator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-interaction-between-drone-and-hangar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Interaction between drone and hangar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Interaction between drone and hangar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-take-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Take-off
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-landing-with-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Landing with authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-landing-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Landing denied
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tasks-and-periods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tasks and periods
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="behaviour">Behaviour<a class="headerlink" href="#behaviour" title="Permanent link">&para;</a></h1>
+<p>This chapter models the behaviour of the system with <strong>finite state machines (FSMs)</strong>. It defines the state machines of each
+device, how they interact with each other, and why they are designed as <strong>synchronous Moore machines</strong>.</p>
+<h2 id="1-modelling-approach">1. Modelling approach<a class="headerlink" href="#1-modelling-approach" title="Permanent link">&para;</a></h2>
+<h3 id="11-discrete-and-continuous-components">1.1 Discrete and continuous components<a class="headerlink" href="#11-discrete-and-continuous-components" title="Permanent link">&para;</a></h3>
+<p>The system contains both kinds of components described in the theory:
+- <strong>discrete components</strong> evolve through atomic changes (a door is closed or opening, a request is granted or denied). They are modelled with FSMs;
+- <strong>continuous components</strong> evolve smoothly: the flight kinematics (speed, acceleration, altitude, distance) and the battery charge.
+  They are not FSMs: they are modelled as simple equations, integrated with a fixed time step dt, e.g. v(t + dt) = v(t) + a · dt.</p>
+<h3 id="12-extended-fsms">1.2 Extended FSMs<a class="headerlink" href="#12-extended-fsms" title="Permanent link">&para;</a></h3>
+<p>All machines are <strong>extended FSMs (EFSMs)</strong>: besides the discrete state, they use variables (timers, counters, the door angle,
+the current reqId). This keeps the number of discrete states small. Timeouts, for example, are counters of reactions, not additional states.</p>
+<h3 id="13-globally-asynchronous-locally-synchronous">1.3 Globally asynchronous, locally synchronous<a class="headerlink" href="#13-globally-asynchronous-locally-synchronous" title="Permanent link">&para;</a></h3>
+<p>The two devices run on two different microcontrollers, with no shared clock. <strong>Their FSMs are therefore concurrent and asynchronous
+with respect to each other</strong>: they coordinate only by exchanging messages, and a message produced by one machine is an input event for the other (section 5).</p>
+<p>On each device, instead, the machines are synchronous (time-triggered): they react periodically, with a fixed period.
+Time is part of the specification: timeouts, the gradual movement of the door, sensor sampling, the time step of the flight simulation.
+This scheme is known as <strong>GALS (globally asynchronous, locally synchronous)</strong>.</p>
+<p>Several synchronous FSMs run concurrently on the same device, one per task, each with its own period (section 6).</p>
+<h2 id="2-moore-machines">2. Moore machines<a class="headerlink" href="#2-moore-machines" title="Permanent link">&para;</a></h2>
+<h3 id="21-the-choice">2.1 The choice<a class="headerlink" href="#21-the-choice" title="Permanent link">&para;</a></h3>
+<p>All FSMs in the system are designed as <strong>Moore machines</strong>. In the diagrams, the outputs are written inside each state, and the transitions are labelled only with their guards.</p>
+<p>Outputs are of two kinds:
+- <strong>level outputs</strong>, held for the whole time the machine is in a state: the door command, the servo angle, the LED pattern, the active flight dynamics, the state published on MQTT;
+- <strong>messages</strong>, emitted once when the machine <em>enters</em> a state (entry actions, as in UML statecharts): a message is a
+  discrete event, so sending it at every reaction while in the state would be wrong.</p>
+<h3 id="22-why-moore-and-not-mealy">2.2 Why Moore and not Mealy<a class="headerlink" href="#22-why-moore-and-not-mealy" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>The published state is the output.</strong> Each device publishes its current state on a retained MQTT topic. With a Moore
+   machine that state fully describes what the device is doing, so other components can rely on it. For example, the hangar
+   does not need a separate <em>"I have landed"</em> message: it observes that the drone's state has become <code>AT_REST</code>. The protocol
+   gets simpler, and the dashboard shows exactly what drives the outputs.</li>
+<li><strong>Idempotent outputs after a failure.</strong> Since every output is bound to a state, it can be reproduced at any time from
+   the state alone.</li>
+<li><strong>Simpler implementation and tests.</strong> Each state is a class with an <code>onEnter()</code> method (messages) and an output function (levels),
+   following the <em>State pattern</em>. A unit test checks a single fact: <em>"after reaching state X, the outputs are Y"</em>.
+   <strong>Trade-offs accepted.</strong> A Moore machine reacts to an input one reaction later than the equivalent Mealy machine, and sometime
+   needs a few extra transient states (e.g. <code>DENYING</code>, section 4.1). With a period of 100 ms, the extra latency is at most 100
+   ms per step, well within the 500 ms of NFR-6.</li>
+</ol>
+<h2 id="3-drone">3. Drone<a class="headerlink" href="#3-drone" title="Permanent link">&para;</a></h2>
+<h3 id="31-flight-fsm">3.1 Flight FSM<a class="headerlink" href="#31-flight-fsm" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>stateDiagram-v2
+  [*] --&gt; AT_REST
+
+  state "AT_REST" as AT_REST
+  AT_REST : charging = ON
+  AT_REST : dynamics = idle
+  state "TAKEOFF_REQ" as TAKEOFF_REQ
+  TAKEOFF_REQ : on entry send TAKEOFF_REQ
+  TAKEOFF_REQ : dynamics = idle
+  state "LEAVING" as LEAVING
+  LEAVING : dynamics = climb
+  state "IN_MISSION" as IN_MISSION
+  IN_MISSION : dynamics = follow segments
+  state "RETURNING" as RETURNING
+  RETURNING : dynamics = fly to hangar
+  state "LANDING_REQ" as LANDING_REQ
+  LANDING_REQ : on entry send LANDING_REQ
+  LANDING_REQ : dynamics = hover
+  state "AUTH_RESPONSE" as AUTH_RESPONSE
+  AUTH_RESPONSE : on entry send AUTH_RESPONSE
+  AUTH_RESPONSE : dynamics = hover
+  state "HOLDING" as HOLDING
+  HOLDING : dynamics = hover
+  state "LANDING" as LANDING
+  LANDING : dynamics = descend
+  state "EMERGENCY" as EMERGENCY
+  EMERGENCY : dynamics = emergency descent
+  EMERGENCY : alarm = ON
+
+  AT_REST --&gt; TAKEOFF_REQ : startMission
+  TAKEOFF_REQ --&gt; LEAVING : granted
+  TAKEOFF_REQ --&gt; AT_REST : denied or timeout
+  LEAVING --&gt; IN_MISSION : altitude &gt;= cruise altitude
+  IN_MISSION --&gt; RETURNING : missionDone or battery &lt; return level or recall
+  RETURNING --&gt; LANDING_REQ : distance from hangar &lt; approach distance
+  LANDING_REQ --&gt; AUTH_RESPONSE : challenge received
+  LANDING_REQ --&gt; HOLDING : denied or timeout
+  AUTH_RESPONSE --&gt; LANDING : granted
+  AUTH_RESPONSE --&gt; HOLDING : denied or timeout
+  HOLDING --&gt; LANDING_REQ : retry timer expired
+  LANDING --&gt; AT_REST : ground distance = 0
+  IN_MISSION --&gt; EMERGENCY : battery critical or fault
+  RETURNING --&gt; EMERGENCY : battery critical or fault
+  HOLDING --&gt; EMERGENCY : battery critical or fault
+  EMERGENCY --&gt; AT_REST : reset</code></pre>
+<p>Every state publishes its name on <code>dib/drone/state</code> when entered. The transitions to <code>EMERGENCY</code> drawn from <code>IN_MISSION</code>, <code>RETURNING</code> and <code>HOLDING</code> apply to <strong>every flying state</strong> (<code>LEAVING</code>, <code>LANDING_REQ</code>, <code>AUTH_RESPONSE</code>, <code>LANDING</code> included). They are omitted from the diagram for readability.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AT_REST</code></td>
+<td>Inside the hangar, recharging. Initial state.</td>
+</tr>
+<tr>
+<td><code>TAKEOFF_REQ</code></td>
+<td>Take-off requested, waiting for the hangar's decision.</td>
+</tr>
+<tr>
+<td><code>LEAVING</code></td>
+<td>Leaving the hangar and climbing to cruise altitude. During this phase the board is taken out of the hangar.</td>
+</tr>
+<tr>
+<td><code>IN_MISSION</code></td>
+<td>Flying the mission segments. Reaching this state tells the hangar that the drone is out.</td>
+</tr>
+<tr>
+<td><code>RETURNING</code></td>
+<td>Flying back towards the hangar.</td>
+</tr>
+<tr>
+<td><code>LANDING_REQ</code></td>
+<td>Landing requested, hovering, waiting for the authentication challenge.</td>
+</tr>
+<tr>
+<td><code>AUTH_RESPONSE</code></td>
+<td>Challenge answered, waiting for the decision.</td>
+</tr>
+<tr>
+<td><code>HOLDING</code></td>
+<td>Landing denied or not answered: hovering until the retry timer expires.</td>
+</tr>
+<tr>
+<td><code>LANDING</code></td>
+<td>Descending into the hangar. During this phase the board is put back into the hangar. Reaching <code>AT_REST</code> tells the hangar that the drone has landed.</td>
+</tr>
+<tr>
+<td><code>EMERGENCY</code></td>
+<td>Critical anomaly: emergency descent in the safe area (EC-6). Left only by an operator reset after recovery.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reqId</code></td>
+<td>Identifier of the current request, used to match the answer.</td>
+</tr>
+<tr>
+<td><code>timer</code></td>
+<td>Counts reactions, for timeouts and for the retry delay.</td>
+</tr>
+<tr>
+<td><code>segment</code>, <code>progress</code></td>
+<td>Current mission segment and travelled fraction.</td>
+</tr>
+<tr>
+<td><code>battery</code>, <code>altitude</code>, <code>groundDistance</code>, <code>distanceFromHangar</code>, <code>tilt</code></td>
+<td>Read from the continuous models.</td>
+</tr>
+<tr>
+<td><code>fault</code></td>
+<td>Set by the anomaly input (section 3.2).</td>
+</tr>
+</tbody>
+</table>
+<p>The guard <code>startMission</code> is true only if the command passed the dispatcher, which also checks that the battery is above the minimum take-off level. Otherwise it answers <code>BATTERY_LOW</code>.</p>
+<p>The board is physically moved during take-off and landing, so the simulated <code>LEAVING</code> and <code>LANDING</code> phases last long enough to do it by hand (5–8 s each).</p>
+<h3 id="32-anomaly-input">3.2 Anomaly input<a class="headerlink" href="#32-anomaly-input" title="Permanent link">&para;</a></h3>
+<p>The tilt switch injects a fault to demonstrate the emergency behaviour: tilting the board makes the drone enter <code>EMERGENCY</code>.
+The switch is a digital input that bounces like a button, so it is read through the debouncing FSM of section 4.5, and its
+event sets the <code>fault</code> variable read by the flight FSM. Roll and pitch in the telemetry remain simulated, since the switch
+reports only <em>tilted</em> or <em>not tilted</em>.</p>
+<h3 id="33-status-led">3.3 Status LED<a class="headerlink" href="#33-status-led" title="Permanent link">&para;</a></h3>
+<p>An RGB LED shows the drone state. Like the hangar indicator, its colour is a function of the flight FSM state.</p>
+<table>
+<thead>
+<tr>
+<th>Flight state</th>
+<th>Colour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AT_REST</code></td>
+<td>green</td>
+</tr>
+<tr>
+<td><code>TAKEOFF_REQ</code>, <code>LANDING_REQ</code>, <code>AUTH_RESPONSE</code></td>
+<td>yellow blinking</td>
+</tr>
+<tr>
+<td><code>LEAVING</code>, <code>LANDING</code></td>
+<td>yellow</td>
+</tr>
+<tr>
+<td><code>IN_MISSION</code>, <code>RETURNING</code></td>
+<td>blue</td>
+</tr>
+<tr>
+<td><code>HOLDING</code></td>
+<td>blue blinking</td>
+</tr>
+<tr>
+<td><code>EMERGENCY</code></td>
+<td>red blinking</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-hangar">4. Hangar<a class="headerlink" href="#4-hangar" title="Permanent link">&para;</a></h2>
+<p>The hangar runs five FSMs: the <strong>controller</strong>, which takes decisions; the <strong>door</strong>, which executes them; the <strong>environment monitor</strong>,
+which conditions the temperature and humidity readings; the <strong>presence monitor</strong>, which detects whether the drone is inside;
+the <strong>button</strong>, which detects the local alarm reset. A sixth component, the <strong>status indicator</strong>, maps the controller state
+to the traffic light and the display.</p>
+<h3 id="41-controller-fsm">4.1 Controller FSM<a class="headerlink" href="#41-controller-fsm" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>stateDiagram-v2
+[*] --&gt; IDLE
+
+state "IDLE" as IDLE
+IDLE : doorCmd = CLOSE
+state "TAKEOFF_PREP" as TAKEOFF_PREP
+TAKEOFF_PREP : doorCmd = OPEN
+state "DEPARTURE" as DEPARTURE
+DEPARTURE : doorCmd = OPEN
+DEPARTURE : on entry send GRANTED
+state "DRONE_OUT" as DRONE_OUT
+DRONE_OUT : doorCmd = CLOSE
+state "AUTHENTICATING" as AUTHENTICATING
+AUTHENTICATING : doorCmd = CLOSE
+AUTHENTICATING : on entry send CHALLENGE with nonce
+state "LANDING_PREP" as LANDING_PREP
+LANDING_PREP : doorCmd = OPEN
+state "LANDING_WAIT" as LANDING_WAIT
+LANDING_WAIT : doorCmd = OPEN
+LANDING_WAIT : on entry send GRANTED
+state "DENYING" as DENYING
+DENYING : doorCmd = CLOSE
+DENYING : on entry send DENIED with reason
+state "ALARM" as ALARM
+ALARM : doorCmd = CLOSE
+ALARM : alarm = ON
+
+IDLE --&gt; TAKEOFF_PREP : TAKEOFF_REQ and envOk and droneDetected
+IDLE --&gt; DENYING : TAKEOFF_REQ and not envOk
+IDLE --&gt; DENYING : TAKEOFF_REQ and not droneDetected
+TAKEOFF_PREP --&gt; DEPARTURE : doorState = OPEN
+DEPARTURE --&gt; DRONE_OUT : droneState = IN_MISSION and not droneDetected
+DRONE_OUT --&gt; AUTHENTICATING : LANDING_REQ
+AUTHENTICATING --&gt; LANDING_PREP : hmac ok and envOk
+AUTHENTICATING --&gt; DENYING : hmac ok and not envOk
+AUTHENTICATING --&gt; DENYING : hmac wrong or timeout
+LANDING_PREP --&gt; LANDING_WAIT : doorState = OPEN
+LANDING_WAIT --&gt; IDLE : droneState = AT_REST and droneDetected
+DENYING --&gt; IDLE : droneDetected
+DENYING --&gt; DRONE_OUT : not droneDetected
+IDLE --&gt; ALARM : emergencyClose
+DRONE_OUT --&gt; ALARM : emergencyClose
+DEPARTURE --&gt; ALARM : timeout or droneOffline
+LANDING_WAIT --&gt; ALARM : timeout or droneOffline
+ALARM --&gt; IDLE : reset and causeCleared and droneDetected
+ALARM --&gt; DRONE_OUT : reset and causeCleared and not droneDetected</code></pre>
+<p>Every state publishes its name on <code>dib/hangar/state</code> when entered.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IDLE</code></td>
+<td>Drone inside, door closed.</td>
+</tr>
+<tr>
+<td><code>TAKEOFF_PREP</code></td>
+<td>Take-off accepted, door opening.</td>
+</tr>
+<tr>
+<td><code>DEPARTURE</code></td>
+<td>Door fully open, take-off granted, waiting for the drone to be out.</td>
+</tr>
+<tr>
+<td><code>DRONE_OUT</code></td>
+<td>Drone in mission, door closed.</td>
+</tr>
+<tr>
+<td><code>AUTHENTICATING</code></td>
+<td>Landing requested, challenge sent, waiting for the answer.</td>
+</tr>
+<tr>
+<td><code>LANDING_PREP</code></td>
+<td>Landing accepted, door opening.</td>
+</tr>
+<tr>
+<td><code>LANDING_WAIT</code></td>
+<td>Door fully open, landing granted, waiting for the drone to land.</td>
+</tr>
+<tr>
+<td><code>DENYING</code></td>
+<td>Transient: sends the denial with its reason, then returns at the next reaction.</td>
+</tr>
+<tr>
+<td><code>ALARM</code></td>
+<td>Door closed, every request denied with <code>ALARM_ACTIVE</code> until a reset.</td>
+</tr>
+</tbody>
+</table>
+<p>At start-up the controller enters <code>IDLE</code>; at its first reaction, if the presence monitor does not detect the drone, it moves
+to <code>DRONE_OUT</code> (EC-14).</p>
+<p><strong>Denial reasons</strong> set when entering <code>DENYING</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Transition</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>take-off with <code>not envOk</code></td>
+<td><code>BAD_WEATHER</code></td>
+</tr>
+<tr>
+<td>take-off with <code>not droneDetected</code></td>
+<td><code>DRONE_NOT_PRESENT</code></td>
+</tr>
+<tr>
+<td>landing with <code>hmac ok and not envOk</code></td>
+<td><code>BAD_WEATHER</code></td>
+</tr>
+<tr>
+<td>landing with <code>hmac wrong</code></td>
+<td><code>AUTH_FAILED</code></td>
+</tr>
+<tr>
+<td>landing with <code>timeout</code></td>
+<td><code>AUTH_TIMEOUT</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Alarm causes</strong> set when entering <code>ALARM</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Transition</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>emergencyClose</code></td>
+<td><code>EMERGENCY_CLOSE</code></td>
+</tr>
+<tr>
+<td><code>timeout</code> in <code>DEPARTURE</code></td>
+<td><code>DEPARTURE_TIMEOUT</code></td>
+</tr>
+<tr>
+<td><code>timeout</code> in <code>LANDING_WAIT</code></td>
+<td><code>LANDING_TIMEOUT</code></td>
+</tr>
+<tr>
+<td><code>droneOffline</code></td>
+<td><code>DRONE_OFFLINE</code></td>
+</tr>
+</tbody>
+</table>
+<p>The guard <code>causeCleared</code> is always true for <code>EMERGENCY_CLOSE</code>, since a human decision is revoked by a human. For the other
+causes it is true when the drone is online again and its state agrees with the presence sensor.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reqId</code>, <code>nonce</code></td>
+<td>Current request and authentication challenge.</td>
+</tr>
+<tr>
+<td><code>reason</code>, <code>cause</code></td>
+<td>Reason of the denial, cause of the alarm.</td>
+</tr>
+<tr>
+<td><code>timer</code></td>
+<td>Timeouts in <code>AUTHENTICATING</code>, <code>DEPARTURE</code> and <code>LANDING_WAIT</code>.</td>
+</tr>
+<tr>
+<td><code>emergencyPending</code></td>
+<td>Emergency closure requested while the drone is passing through the door (EC-15).</td>
+</tr>
+</tbody>
+</table>
+<p>Inputs: <code>envOk</code> comes from the environment monitor (4.3), <code>droneDetected</code> from the presence monitor (4.4), <code>doorState</code> from
+the door FSM (4.2). <code>droneState</code> and <code>droneOffline</code> come from the drone's state topic and Last Will. <code>reset</code> comes from the
+dashboard or from the local button (4.5). Requests, the challenge answer and operator commands come from the dispatcher.</p>
+<p><strong>Two independent confirmations.</strong> Every passage through the door needs both the state declared by the drone and the physical
+detection by the presence sensor. If they do not agree before the timeout, the hangar enters the alarm state (EC-17).</p>
+<h3 id="42-door-fsm">4.2 Door FSM<a class="headerlink" href="#42-door-fsm" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>stateDiagram-v2
+  [*] --&gt; CLOSED
+
+  state "CLOSED" as CLOSED
+  CLOSED : servo angle = 0°
+  state "OPENING" as OPENING
+  OPENING : servo angle = angle
+  state "OPEN" as OPEN
+  OPEN : servo angle = 90°
+  state "CLOSING" as CLOSING
+  CLOSING : servo angle = angle
+
+  CLOSED --&gt; OPENING : doorCmd = OPEN
+  OPENING --&gt; OPEN : angle &gt;= 90°
+  OPENING --&gt; CLOSING : doorCmd = CLOSE
+  OPEN --&gt; CLOSING : doorCmd = CLOSE
+  CLOSING --&gt; CLOSED : angle &lt;= 0°
+  CLOSING --&gt; OPENING : doorCmd = OPEN</code></pre>
+<p>In <code>OPENING</code> and <code>CLOSING</code> the variable <code>angle</code> increases or decreases by a fixed step at every reaction (e.g. 3° every 50 ms, a full movement in 1.5 s). The door state and its position in % are published at every change.</p>
+<p>The door FSM is a pure executor: it never decides whether opening is safe. That decision belongs to the controller.</p>
+<h3 id="43-environment-monitor-fsm">4.3 Environment monitor FSM<a class="headerlink" href="#43-environment-monitor-fsm" title="Permanent link">&para;</a></h3>
+<p>Raw readings are noisy, and a value near a threshold would make the classification flip at every sample. The monitor applies <strong>input conditioning</strong>: a change of classification requires several consecutive readings that agree.</p>
+<pre class="mermaid"><code>stateDiagram-v2
+  [*] --&gt; SAFE
+
+  state "SAFE" as SAFE
+  SAFE : envOk = true
+  state "UNSAFE" as UNSAFE
+  UNSAFE : envOk = false
+
+  SAFE --&gt; UNSAFE : unsafeCount &gt;= 2
+  UNSAFE --&gt; SAFE : safeCount &gt;= 3</code></pre>
+<p><code>unsafeCount</code> and <code>safeCount</code> count consecutive readings that violate, or respect, the temperature and humidity thresholds of the safety policy, and are reset when a reading disagrees. A failed or invalid reading counts as unsafe (EC-12). Leaving the unsafe classification requires more readings than entering it, so the system is cautious.</p>
+<h3 id="44-presence-monitor-fsm">4.4 Presence monitor FSM<a class="headerlink" href="#44-presence-monitor-fsm" title="Permanent link">&para;</a></h3>
+<p>An infrared sensor pointed at the parking spot detects whether the drone is inside. Its output can flicker (reflections,
+ambient light, the drone being moved), so a change is accepted only after several consecutive readings that agree.</p>
+<pre class="mermaid"><code>stateDiagram-v2
+  [*] --&gt; ABSENT
+
+  state "ABSENT" as ABSENT
+  ABSENT : droneDetected = false
+  state "PRESENT" as PRESENT
+  PRESENT : droneDetected = true
+
+  ABSENT --&gt; PRESENT : presentCount &gt;= 3
+  PRESENT --&gt; ABSENT : absentCount &gt;= 3</code></pre>
+<p><code>presentCount</code> and <code>absentCount</code> count consecutive readings in which the sensor sees, or does not see, the drone. With a
+period of 100 ms, a change is confirmed in 300 ms. The initial state is corrected within the first reactions, so the
+controller knows where the drone is right after a reboot (EC-14). Every change is published together with the hangar state,
+so the dashboard can show it.</p>
+<h3 id="45-button-fsm-debouncing">4.5 Button FSM (debouncing)<a class="headerlink" href="#45-button-fsm-debouncing" title="Permanent link">&para;</a></h3>
+<p>A local button on the hangar resets the alarm. It is the recovery channel when the backend is not reachable: without it,
+the hangar would stay in <code>ALARM</code> until the dashboard comes back. A press is accepted only while the controller is in <code>ALARM</code>,
+and only if the cause of the alarm has been cleared; otherwise the display shows <code>CAUSE_NOT_CLEARED</code>. Presses in any other
+state are ignored. The same machine reads the drone's tilt switch (3.2).</p>
+<pre class="mermaid"><code>stateDiagram-v2
+  [*] --&gt; RELEASED
+
+  state "RELEASED" as RELEASED
+  RELEASED : no output
+  state "PRESSED" as PRESSED
+  PRESSED : on entry emit pressed event
+
+  RELEASED --&gt; PRESSED : pin = HIGH
+  PRESSED --&gt; RELEASED : pin = LOW</code></pre>
+<p>Debouncing follows from the choice of the period, as described in the theory:</p>
+<ul>
+<li>the sampling period is <strong>50 ms</strong>, longer than the typical bouncing period (~20 ms), so the bounces of a single press are
+  not observed as separate presses;</li>
+<li>the period is shorter than the <strong>minimum event separation time</strong> of a human press (a press lasts well over 100 ms), so
+  no press is lost.</li>
+</ul>
+<h3 id="46-status-indicator">4.6 Status indicator<a class="headerlink" href="#46-status-indicator" title="Permanent link">&para;</a></h3>
+<p>The status indicator is not an independent decision maker: its output is a function of the controller state. It is a Moore machine whose only internal state is the blinking phase, which toggles every 250 ms. It drives the traffic light and the 128×32 display.</p>
+<table>
+<thead>
+<tr>
+<th>Controller state</th>
+<th>Green</th>
+<th>Yellow</th>
+<th>Red</th>
+<th>Display</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IDLE</code></td>
+<td>on</td>
+<td>off</td>
+<td>off</td>
+<td>state, temperature, humidity</td>
+</tr>
+<tr>
+<td><code>TAKEOFF_PREP</code>, <code>LANDING_PREP</code></td>
+<td>off</td>
+<td>blinking</td>
+<td>off</td>
+<td>"DOOR OPENING"</td>
+</tr>
+<tr>
+<td><code>DEPARTURE</code>, <code>LANDING_WAIT</code></td>
+<td>off</td>
+<td>on</td>
+<td>off</td>
+<td>"TAKE-OFF" / "LANDING"</td>
+</tr>
+<tr>
+<td><code>DRONE_OUT</code></td>
+<td>blinking</td>
+<td>off</td>
+<td>off</td>
+<td>"DRONE OUT", temperature, humidity</td>
+</tr>
+<tr>
+<td><code>AUTHENTICATING</code></td>
+<td>off</td>
+<td>blinking</td>
+<td>off</td>
+<td>"AUTHENTICATING"</td>
+</tr>
+<tr>
+<td><code>DENYING</code></td>
+<td>off</td>
+<td>off</td>
+<td>on</td>
+<td>denial reason</td>
+</tr>
+<tr>
+<td><code>ALARM</code></td>
+<td>off</td>
+<td>off</td>
+<td>blinking</td>
+<td>alarm cause</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-interaction-between-drone-and-hangar">5. Interaction between drone and hangar<a class="headerlink" href="#5-interaction-between-drone-and-hangar" title="Permanent link">&para;</a></h2>
+<p>The two flight-critical interactions are request/response exchanges, matched by <code>reqId</code> and bounded by timeouts on both sides (NFR-3).</p>
+<h3 id="51-take-off">5.1 Take-off<a class="headerlink" href="#51-take-off" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+  participant D as Drone
+  participant H as Hangar
+  participant DR as Door
+
+  Note over D: AT_REST
+  D-&gt;&gt;H: TAKEOFF_REQ (reqId)
+  Note over D: TAKEOFF_REQ
+  Note over H: IDLE, envOk, droneDetected
+  H-&gt;&gt;DR: doorCmd = OPEN
+  Note over H: TAKEOFF_PREP
+  DR--&gt;&gt;H: doorState = OPEN
+  H-&gt;&gt;D: GRANTED (reqId)
+  Note over H: DEPARTURE
+  Note over D: LEAVING, board taken out
+  D--&gt;&gt;H: state = IN_MISSION
+  Note over H: sensor no longer detects the drone
+  H-&gt;&gt;DR: doorCmd = CLOSE
+  Note over H: DRONE_OUT</code></pre>
+<h3 id="52-landing-with-authentication">5.2 Landing with authentication<a class="headerlink" href="#52-landing-with-authentication" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+  participant D as Drone
+  participant H as Hangar
+  participant DR as Door
+
+  Note over D: RETURNING
+  D-&gt;&gt;H: LANDING_REQ (reqId)
+  Note over D: LANDING_REQ
+  H-&gt;&gt;D: CHALLENGE (reqId, nonce)
+  Note over H: AUTHENTICATING
+  D-&gt;&gt;H: AUTH_RESPONSE (reqId, HMAC(key, nonce, droneId, reqId))
+  Note over D: AUTH_RESPONSE
+  Note over H: hmac ok, envOk
+  H-&gt;&gt;DR: doorCmd = OPEN
+  Note over H: LANDING_PREP
+  DR--&gt;&gt;H: doorState = OPEN
+  H-&gt;&gt;D: GRANTED (reqId)
+  Note over H: LANDING_WAIT
+  Note over D: LANDING, board put back
+  D--&gt;&gt;H: state = AT_REST
+  Note over H: sensor detects the drone
+  H-&gt;&gt;DR: doorCmd = CLOSE
+  Note over H: IDLE</code></pre>
+<h3 id="53-landing-denied">5.3 Landing denied<a class="headerlink" href="#53-landing-denied" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+  participant D as Drone
+  participant H as Hangar
+
+  D-&gt;&gt;H: LANDING_REQ (reqId = 7)
+  H-&gt;&gt;D: CHALLENGE (7, nonce)
+  D-&gt;&gt;H: AUTH_RESPONSE (7, hmac)
+  Note over H: hmac ok, not envOk
+  H-&gt;&gt;D: DENIED (7, BAD_WEATHER)
+  Note over H: DENYING → DRONE_OUT
+  Note over D: HOLDING, retry timer
+  D-&gt;&gt;H: LANDING_REQ (reqId = 8)
+  Note over D,H: same exchange, with a new nonce</code></pre>
+<h2 id="6-tasks-and-periods">6. Tasks and periods<a class="headerlink" href="#6-tasks-and-periods" title="Permanent link">&para;</a></h2>
+<p>Each FSM is executed by one task of a <strong>cooperative scheduler</strong>. The continuous models are tasks too, since they advance
+with a fixed time step.</p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>Task</th>
+<th>Executes</th>
+<th>Period</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hangar</td>
+<td>Comm</td>
+<td>MQTT client, dispatcher, message queue</td>
+<td>50 ms</td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td>Controller</td>
+<td>Controller FSM (4.1)</td>
+<td>100 ms</td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td>Door</td>
+<td>Door FSM (4.2)</td>
+<td>50 ms</td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td>EnvMonitor</td>
+<td>Environment monitor FSM (4.3)</td>
+<td>2 s</td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td>Presence</td>
+<td>Presence monitor FSM (4.4)</td>
+<td>100 ms</td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td>Button</td>
+<td>Button FSM (4.5)</td>
+<td>50 ms</td>
+</tr>
+<tr>
+<td>Hangar</td>
+<td>Status</td>
+<td>Status indicator (4.6)</td>
+<td>250 ms</td>
+</tr>
+<tr>
+<td>Drone</td>
+<td>Comm</td>
+<td>MQTT client, dispatcher, message queue</td>
+<td>50 ms</td>
+</tr>
+<tr>
+<td>Drone</td>
+<td>Flight</td>
+<td>Flight FSM (3.1)</td>
+<td>100 ms</td>
+</tr>
+<tr>
+<td>Drone</td>
+<td>FlightModel</td>
+<td>Kinematics, <code>dt</code> = 100 ms</td>
+<td>100 ms</td>
+</tr>
+<tr>
+<td>Drone</td>
+<td>Battery</td>
+<td>Battery model</td>
+<td>1 s</td>
+</tr>
+<tr>
+<td>Drone</td>
+<td>Anomaly</td>
+<td>Button FSM on the tilt switch (3.2)</td>
+<td>50 ms</td>
+</tr>
+<tr>
+<td>Drone</td>
+<td>StatusLed</td>
+<td>Status LED (3.3)</td>
+<td>250 ms</td>
+</tr>
+<tr>
+<td>Drone</td>
+<td>Telemetry</td>
+<td>Publishes telemetry</td>
+<td>500 ms</td>
+</tr>
+</tbody>
+</table>
+<p>The choice of the periods follows the rule from the theory: <em>the largest period that still guarantees that no event is lost and that latencies stay acceptable.</em></p>
+<ul>
+<li><strong>100 ms</strong> for the decision-making FSMs gives a worst-case reaction latency well below the 500 ms of NFR-6.</li>
+<li><strong>100 ms</strong> for the presence sensor confirms a change in 300 ms, far quicker than the time needed to move the drone in or out.</li>
+<li><strong>50 ms</strong> for the door gives a smooth movement. For the button and the tilt switch it filters bounces while staying below the MEST of a press.</li>
+<li><strong>2 s</strong> for the environment: the weather changes slowly, and the DHT11 sensor must not be read more than once per second.</li>
+<li><strong>The scheduler runs at 50 ms</strong>, the greatest common divisor of all periods.</li>
+</ul>
+<p><strong>Messages and the MEST.</strong> For physical inputs, choosing a period shorter than the MEST guarantees that no event is lost.
+Network messages give no such guarantee: two messages can arrive a few milliseconds apart. For this reason the MQTT callback
+never touches the FSMs: it pushes each message into a queue, and the dispatcher delivers the queued events to the machines
+at their next reaction. The queue is the boundary between the asynchronous world of the network and the synchronous world of the FSMs.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

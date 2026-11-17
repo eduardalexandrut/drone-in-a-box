@@ -1,0 +1,1433 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Distributed Edge-to-Cloud IoT System Documentation">
+      
+      
+      
+      
+        <link rel="prev" href="../control/">
+      
+      
+        <link rel="next" href="../drone/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Hangar - Drone-in-a-Box System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hangar" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Drone-in-a-Box System" class="md-header__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Drone-in-a-Box System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hangar
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Drone-in-a-Box System" class="md-nav__button md-logo" aria-label="Drone-in-a-Box System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Drone-in-a-Box System
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../behaviour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Behaviour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hangar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-blackboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Blackboard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Blackboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Levels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outbox
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-class-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Class diagrams
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Class diagrams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-tasks-and-blackboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Tasks and blackboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-hardware-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Hardware abstraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-where-the-classes-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Where the classes live
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend and dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../simulators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conclusions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-blackboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Blackboard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Blackboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Levels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outbox
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-class-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Class diagrams
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Class diagrams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-tasks-and-blackboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Tasks and blackboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-hardware-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Hardware abstraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-where-the-classes-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Where the classes live
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hangar">Hangar<a class="headerlink" href="#hangar" title="Permanent link">&para;</a></h1>
+<p>This chapter describes how the control architecture of <a href="../control/">Control</a> is applied to the hangar unit. The behaviour of each state machine is defined in <a href="../../behaviour/">Behaviour</a>; here we describe how the parts are organised and how they exchange data.</p>
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>The hangar firmware is a set of periodic tasks that never call each other: they communicate only through a shared <code>HangarBlackboard</code>. Input tasks read the sensors and write their values into the blackboard; the controller takes decisions on those values; output tasks drive the actuators; <code>HangarComm</code> connects the blackboard to the MQTT broker.</p>
+<pre class="mermaid"><code>flowchart LR
+  subgraph Sensors
+    IR[IR sensor]
+    DHT[DHT11]
+    PB[Reset button]
+  end
+
+  subgraph Inputs [Input tasks]
+    PRES[PresenceTask]
+    ENV[EnvMonitorTask]
+    BTN[ButtonTask]
+  end
+
+  BB[(HangarBlackboard)]
+  CTRL[ControllerTask]
+  COMM[HangarComm]
+  BR[(MQTT broker)]
+
+  subgraph Outputs [Output tasks]
+    DOOR[DoorTask]
+    STAT[StatusTask]
+  end
+
+  subgraph Actuators
+    SERVO[Servo]
+    TL[Traffic light]
+    LCD[Display]
+  end
+
+  IR --&gt; PRES
+  DHT --&gt; ENV
+  PB --&gt; BTN
+  PRES --&gt; BB
+  ENV --&gt; BB
+  BTN --&gt; BB
+  BB &lt;--&gt; CTRL
+  BB &lt;--&gt; COMM
+  COMM &lt;--&gt; BR
+  BB &lt;--&gt; DOOR
+  BB --&gt; STAT
+  DOOR --&gt; SERVO
+  STAT --&gt; TL
+  STAT --&gt; LCD</code></pre>
+<p>Only <code>ControllerTask</code> takes decisions. The other tasks either translate a physical signal into a value (input tasks), or a value into a physical action (output tasks), or messages into values and back (<code>HangarComm</code>).</p>
+<h2 id="2-tasks">2. Tasks<a class="headerlink" href="#2-tasks" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Period</th>
+<th>Behaviour</th>
+<th>Reads</th>
+<th>Writes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HangarComm</code></td>
+<td>50 ms</td>
+<td>Connection FSM, dispatcher (<a href="../control/">Control</a>)</td>
+<td><code>hangarState</code>, <code>doorState</code>, <code>doorPosition</code>, environment, <code>droneDetected</code>, outbox</td>
+<td><code>droneState</code>, <code>droneOnline</code>, <code>connected</code>, request events</td>
+</tr>
+<tr>
+<td><code>PresenceTask</code></td>
+<td>100 ms</td>
+<td>Presence monitor FSM (4.4)</td>
+<td>IR sensor</td>
+<td><code>droneDetected</code></td>
+</tr>
+<tr>
+<td><code>EnvMonitorTask</code></td>
+<td>2 s</td>
+<td>Environment monitor FSM (4.3)</td>
+<td>DHT11</td>
+<td><code>envOk</code>, <code>temperature</code>, <code>humidity</code></td>
+</tr>
+<tr>
+<td><code>ButtonTask</code></td>
+<td>50 ms</td>
+<td>Button FSM (4.5)</td>
+<td>reset button</td>
+<td><code>resetFromButton</code></td>
+</tr>
+<tr>
+<td><code>ControllerTask</code></td>
+<td>100 ms</td>
+<td>Controller FSM (4.1)</td>
+<td>inputs and events above, <code>doorState</code></td>
+<td><code>doorCmd</code>, <code>hangarState</code>, <code>reason</code>, <code>cause</code>, outbox</td>
+</tr>
+<tr>
+<td><code>DoorTask</code></td>
+<td>50 ms</td>
+<td>Door FSM (4.2)</td>
+<td><code>doorCmd</code></td>
+<td><code>doorState</code>, <code>doorPosition</code>, servo</td>
+</tr>
+<tr>
+<td><code>StatusTask</code></td>
+<td>250 ms</td>
+<td>Status indicator (4.6)</td>
+<td><code>hangarState</code>, <code>reason</code>, <code>cause</code>, environment</td>
+<td>traffic light, display</td>
+</tr>
+</tbody>
+</table>
+<p>The section numbers in the <em>Behaviour</em> column refer to <a href="../../behaviour/">Behaviour</a>.</p>
+<p><strong>Order of execution.</strong> The tasks are registered in the scheduler in the order of the table: communication and inputs first, then the controller, then the outputs. In this way, within the same round:</p>
+<ul>
+<li>the controller decides on the freshest inputs, including the messages just received;</li>
+<li>the actuators apply the commands the controller has just produced.</li>
+</ul>
+<p>A command therefore reaches the door in the same round in which it was decided. The only one-round delay concerns outgoing messages: the controller places them in the outbox after <code>HangarComm</code> has run, so they are published at the next round, at most 50 ms later.</p>
+<p><strong>Base period.</strong> The scheduler runs with a base period of 50 ms, the greatest common divisor of the task periods. The timer keeps a fixed grid of ticks: if a round overruns, the missed ticks are skipped and counted, without shifting the following ones.</p>
+<h2 id="3-blackboard">3. Blackboard<a class="headerlink" href="#3-blackboard" title="Permanent link">&para;</a></h2>
+<p><code>HangarBlackboard</code> holds all the data shared by the tasks. It is created once at start-up and passed by reference to every task. Every field has exactly <strong>one writer</strong>.</p>
+<h3 id="levels">Levels<a class="headerlink" href="#levels" title="Permanent link">&para;</a></h3>
+<p>Levels describe the current situation and are overwritten at every update.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Writer</th>
+<th>Readers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>droneDetected</code></td>
+<td><code>PresenceTask</code></td>
+<td><code>ControllerTask</code>, <code>HangarComm</code></td>
+</tr>
+<tr>
+<td><code>envOk</code>, <code>temperature</code>, <code>humidity</code></td>
+<td><code>EnvMonitorTask</code></td>
+<td><code>ControllerTask</code>, <code>StatusTask</code>, <code>HangarComm</code></td>
+</tr>
+<tr>
+<td><code>doorState</code>, <code>doorPosition</code></td>
+<td><code>DoorTask</code></td>
+<td><code>ControllerTask</code>, <code>StatusTask</code>, <code>HangarComm</code></td>
+</tr>
+<tr>
+<td><code>doorCmd</code></td>
+<td><code>ControllerTask</code></td>
+<td><code>DoorTask</code></td>
+</tr>
+<tr>
+<td><code>hangarState</code>, <code>reason</code>, <code>cause</code></td>
+<td><code>ControllerTask</code></td>
+<td><code>StatusTask</code>, <code>HangarComm</code></td>
+</tr>
+<tr>
+<td><code>droneState</code>, <code>droneOnline</code></td>
+<td><code>HangarComm</code></td>
+<td><code>ControllerTask</code></td>
+</tr>
+<tr>
+<td><code>connected</code></td>
+<td><code>HangarComm</code></td>
+<td><code>StatusTask</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h3>
+<p>Events describe something that happened once. They are posted by one task and consumed exactly once by another.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Posted by</th>
+<th>Consumed by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>request</code> (type, <code>reqId</code>)</td>
+<td><code>HangarComm</code></td>
+<td><code>ControllerTask</code></td>
+</tr>
+<tr>
+<td><code>authResponse</code> (<code>reqId</code>, HMAC)</td>
+<td><code>HangarComm</code></td>
+<td><code>ControllerTask</code></td>
+</tr>
+<tr>
+<td><code>emergencyClose</code></td>
+<td><code>HangarComm</code></td>
+<td><code>ControllerTask</code></td>
+</tr>
+<tr>
+<td><code>resetFromDashboard</code></td>
+<td><code>HangarComm</code></td>
+<td><code>ControllerTask</code></td>
+</tr>
+<tr>
+<td><code>resetFromButton</code></td>
+<td><code>ButtonTask</code></td>
+<td><code>ControllerTask</code></td>
+</tr>
+</tbody>
+</table>
+<p>The reset has two sources, the dashboard and the local button, so it is modelled as two separate events: a single shared flag would have two writers. The controller handles them in the same way.</p>
+<h3 id="outbox">Outbox<a class="headerlink" href="#outbox" title="Permanent link">&para;</a></h3>
+<p>The outbox is a fixed-size queue of outgoing messages (<code>CHALLENGE</code>, <code>GRANTED</code>, <code>DENIED</code>). <code>ControllerTask</code> adds a message when it enters a state that emits one; <code>HangarComm</code> empties the queue and publishes the messages. In this way only <code>HangarComm</code> depends on MQTT.</p>
+<p>The state of the hangar, the door and the environment are not placed in the outbox: <code>HangarComm</code> reads them directly from the levels and publishes them when they change.</p>
+<h2 id="4-class-diagrams">4. Class diagrams<a class="headerlink" href="#4-class-diagrams" title="Permanent link">&para;</a></h2>
+<p>The classes of the hangar are shown in three diagrams, each answering a different question: how the tasks share data, how the controller is structured, and how the code reaches the hardware. The shared classes (<code>AbstractTask</code>, <code>CommTask</code>, <code>Event</code>, <code>MessageQueue</code>, <code>State</code>) are described in <a href="../control/">Control</a>.</p>
+<h3 id="41-tasks-and-blackboard">4.1 Tasks and blackboard<a class="headerlink" href="#41-tasks-and-blackboard" title="Permanent link">&para;</a></h3>
+<p>Every task extends <code>AbstractTask</code> and holds a reference to the single <code>HangarBlackboard</code>. <code>HangarComm</code> extends the abstract <code>CommTask</code>, adding the hangar's topics and dispatching rules. The input tasks that need to filter noisy readings use a <code>ConsecutiveFilter</code>.</p>
+<pre class="mermaid"><code>classDiagram
+  direction LR
+  class AbstractTask {
+    &lt;&lt;abstract&gt;&gt;
+    +tick()*
+  }
+  class CommTask {
+    &lt;&lt;abstract&gt;&gt;
+    #dispatch(Message m)*
+  }
+  class HangarComm
+  class PresenceTask
+  class EnvMonitorTask
+  class ButtonTask
+  class ControllerTask
+  class DoorTask
+  class StatusTask
+  class HangarBlackboard {
+    +levels
+    +events
+    +outbox
+  }
+  class Event~T~
+  class MessageQueue
+  class ConsecutiveFilter
+
+  AbstractTask &lt;|-- CommTask
+  CommTask &lt;|-- HangarComm
+  AbstractTask &lt;|-- PresenceTask
+  AbstractTask &lt;|-- EnvMonitorTask
+  AbstractTask &lt;|-- ButtonTask
+  AbstractTask &lt;|-- ControllerTask
+  AbstractTask &lt;|-- DoorTask
+  AbstractTask &lt;|-- StatusTask
+
+  HangarComm --&gt; HangarBlackboard
+  PresenceTask --&gt; HangarBlackboard
+  EnvMonitorTask --&gt; HangarBlackboard
+  ButtonTask --&gt; HangarBlackboard
+  ControllerTask --&gt; HangarBlackboard
+  DoorTask --&gt; HangarBlackboard
+  StatusTask --&gt; HangarBlackboard
+
+  HangarBlackboard *-- "5" Event~T~ : events
+  HangarBlackboard *-- MessageQueue : outbox
+  PresenceTask *-- ConsecutiveFilter
+  EnvMonitorTask *-- ConsecutiveFilter</code></pre>
+<p>The fields of the blackboard are listed in section 3.</p>
+<h3 id="42-controller">4.2 Controller<a class="headerlink" href="#42-controller" title="Permanent link">&para;</a></h3>
+<p>The controller FSM is implemented with the State pattern. <code>ControllerTask</code> is the context: it holds the current state and the variables of the extended FSM (current request, timer, pending emergency closure). Each of the nine states of the controller FSM is a class implementing <code>State</code>. The states are stateless objects, created once at start-up: everything that must be remembered between reactions lives in <code>ControllerTask</code>.</p>
+<pre class="mermaid"><code>classDiagram
+  class ControllerTask {
+    -State* current
+    -uint32 reqId
+    -int timer
+    -bool emergencyPending
+    +tick()
+  }
+  class State {
+    &lt;&lt;interface&gt;&gt;
+    +onEnter(ControllerTask ctx)
+    +outputs(ControllerTask ctx)
+    +next(ControllerTask ctx) State*
+  }
+  class Authenticator {
+    +newChallenge() Nonce
+    +verify(Nonce n, uint32 reqId, Hmac h) bool
+  }
+  class IdleState
+  class TakeoffPrepState
+  class DepartureState
+  class DroneOutState
+  class AuthenticatingState
+  class LandingPrepState
+  class LandingWaitState
+  class DenyingState
+  class AlarmState
+
+  ControllerTask o-- State : current
+  ControllerTask --&gt; Authenticator
+  State &lt;|.. IdleState
+  State &lt;|.. TakeoffPrepState
+  State &lt;|.. DepartureState
+  State &lt;|.. DroneOutState
+  State &lt;|.. AuthenticatingState
+  State &lt;|.. LandingPrepState
+  State &lt;|.. LandingWaitState
+  State &lt;|.. DenyingState
+  State &lt;|.. AlarmState</code></pre>
+<p><code>Authenticator</code> generates the challenge and verifies the drone's answer. It is used only by <code>AuthenticatingState</code>, through the controller.</p>
+<h3 id="43-hardware-abstraction">4.3 Hardware abstraction<a class="headerlink" href="#43-hardware-abstraction" title="Permanent link">&para;</a></h3>
+<p>Tasks never access pins or device libraries directly. Each device is reached through an interface, implemented by a driver class that wraps the hardware.</p>
+<pre class="mermaid"><code>classDiagram
+  direction LR
+  class IPresenceSensor {
+    &lt;&lt;interface&gt;&gt;
+    +isDetected() bool
+  }
+  class IEnvSensor {
+    &lt;&lt;interface&gt;&gt;
+    +read(EnvReading out) bool
+  }
+  class IButton {
+    &lt;&lt;interface&gt;&gt;
+    +isPressed() bool
+  }
+  class IServo {
+    &lt;&lt;interface&gt;&gt;
+    +setAngle(int degrees)
+  }
+  class ITrafficLight {
+    &lt;&lt;interface&gt;&gt;
+    +set(bool green, bool yellow, bool red)
+  }
+  class IDisplay {
+    &lt;&lt;interface&gt;&gt;
+    +show(line1, line2)
+  }
+
+  PresenceTask --&gt; IPresenceSensor
+  EnvMonitorTask --&gt; IEnvSensor
+  ButtonTask --&gt; IButton
+  DoorTask --&gt; IServo
+  StatusTask --&gt; ITrafficLight
+  StatusTask --&gt; IDisplay
+
+  IPresenceSensor &lt;|.. IrSensor
+  IEnvSensor &lt;|.. Dht11Sensor
+  IButton &lt;|.. Button
+  IServo &lt;|.. ServoMotor
+  ITrafficLight &lt;|.. TrafficLight
+  IDisplay &lt;|.. LcdDisplay</code></pre>
+<p>This separation has two benefits:</p>
+<ul>
+<li><strong>testability</strong>: since tasks depend only on interfaces, they compile in the <code>native</code> environment and are tested on the PC with fake devices (e.g. a fake servo that records the angles it receives);</li>
+<li><strong>replaceability</strong>: changing a device (e.g. a different display) requires a new driver, not a change in the tasks.</li>
+</ul>
+<h3 id="44-where-the-classes-live">4.4 Where the classes live<a class="headerlink" href="#44-where-the-classes-live" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Content</th>
+<th>Depends on Arduino</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>common/src/</code></td>
+<td>Shared classes: <code>AbstractTask</code>, <code>Scheduler</code>, <code>ITimer</code>, <code>Event</code>, <code>MessageQueue</code>, <code>State</code>, <code>ConsecutiveFilter</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>hangar-unit/lib/logic/</code></td>
+<td>Tasks, controller states, <code>Authenticator</code>, <code>HangarBlackboard</code>, device interfaces</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>hangar-unit/src/</code></td>
+<td>Drivers (<code>IrSensor</code>, <code>Dht11Sensor</code>, <code>ServoMotor</code>…), <code>ArduinoTimer</code>, <code>HangarComm</code>, <code>main.cpp</code></td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>Only the last folder includes <code>Arduino.h</code>; everything else is compiled and unit-tested in the <code>native</code> environment.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
