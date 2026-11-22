@@ -6,6 +6,10 @@
 #include "examples/DoorToggleTask.h"
 
 #include "BusyWaitTimer.h"
+#include "Dht11Sensor.h"
+#include "EnvMonitorTask.h"
+#include "examples/EnvPrintTask.h"
+#include "SafetyPolicy.h"
 #include "examples/BlinkTask.h"
 #include "Scheduler.h"
 #include "TrafficLight.h"
@@ -29,18 +33,33 @@ TrafficLight light(GREEN_PIN, YELLOW_PIN, RED_PIN);
 StateCycleTask stateCycle(bb);
 StatusTask task(bb, light);
 
+// DTH
+const int DHT_SENSOR = 17;
+Dht11Sensor dhtSensor(DHT_SENSOR);
+SafetyPolicy policy(0, 40, 85);
+EnvMonitorTask envMonitorTask(bb, dhtSensor, policy);
+EnvPrintTask envPrintTask(bb);
+
 
 void setup() {
   Serial.begin(115200);
 
+  // Trafficlight
   light.begin();
   stateCycle.init(2000);
   task.init(250);
 
+  // DHT sensor
+  dhtSensor.begin();
+  envMonitorTask.init(2000);
+  envPrintTask.init(2000);
 
   scheduler.init(50);
   scheduler.addTask(&stateCycle);
   scheduler.addTask(&task);
+
+  scheduler.addTask(&envMonitorTask);
+  scheduler.addTask(&envPrintTask);
 }
 
 void loop() {
