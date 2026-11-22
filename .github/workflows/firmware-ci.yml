@@ -3,7 +3,7 @@ name: firmware-ci
 on:
   push:
     branches:
-      - "feature/**"
+      - "feat/**"
     paths:
       - "hangar-unit/**"
       - "drone-unit/**"
