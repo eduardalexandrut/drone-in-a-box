@@ -15,8 +15,8 @@ inline const char* toString( DoorState doorState ) {
             return "CLOSING";
         case DoorState::OPEN:
             return "OPEN";
-        case DoorState::CLOSING:
-            return "CLOSING";
+        case DoorState::CLOSED:
+            return "CLOSED";
         case DoorState::OPENING:
             return "OPENING";
     }

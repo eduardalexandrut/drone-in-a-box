@@ -8,7 +8,7 @@
 #include <Arduino.h>
 #include "ITimer.h"
 
-class HangarTimer : public ITimer {
+class BusyWaitTimer : public ITimer {
 public:
     void setupPeriod(unsigned long periodMs) override {
         period = periodMs;
