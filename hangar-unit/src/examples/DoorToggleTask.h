@@ -5,7 +5,7 @@
 #ifndef DRONE_IN_A_BOX_DOORTOGGLETASK_H
 #define DRONE_IN_A_BOX_DOORTOGGLETASK_H
 #include "AbstractTask.h"
-#include "../lib/logic/HangarBlackBoard.h"
+#include "../../lib/logic/HangarBlackBoard.h"
 
 
 class DoorToggleTask : public AbstractTask {

@@ -8,7 +8,7 @@
 
 // BlinkTask.h
 #pragma once
-#include "../../common/src/AbstractTask.h"
+#include "../../../common/src/AbstractTask.h"
 
 class BlinkTask : public AbstractTask {
 public:

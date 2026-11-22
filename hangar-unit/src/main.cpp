@@ -3,11 +3,14 @@
 #include "HangarBlackBoard.h"
 #include "DoorTask.h"
 #include "ServoMotor.h"
-#include "DoorToggleTask.h"
+#include "examples/DoorToggleTask.h"
 
 #include "BusyWaitTimer.h"
-#include "BlinkTask.h"
+#include "examples/BlinkTask.h"
 #include "Scheduler.h"
+#include "TrafficLight.h"
+#include "examples/StateCycleTask.h"
+#include "StatusTask.h"
 
 // BlinkTask blink(LED_BUILTIN);
 // BlinkTask blink2(15);
@@ -15,28 +18,29 @@ BusyWaitTimer timer;
 // Scheduler scheduler(timer);
 // unsigned long last = 0;
 
-const int SERVO_PIN = 16;
+const int GREEN_PIN = 12;
+const int YELLOW_PIN = 11;
+const int RED_PIN = 10;
 
 Scheduler scheduler(timer);
 HangarBlackBoard bb;
 
-ServoMotor servo(SERVO_PIN);
-DoorToggleTask toggle(bb);
-DoorTask door(bb, servo, 360, 3);   // 90° open, 3° per tick: 1.5 s at 50 ms
-
+TrafficLight light(GREEN_PIN, YELLOW_PIN, RED_PIN);
+StateCycleTask stateCycle(bb);
+StatusTask task(bb, light);
 
 
 void setup() {
   Serial.begin(115200);
-  servo.begin();
-  door.begin();
 
-  toggle.init(5000);   // switches the command every 5 s
-  door.init(50);
+  light.begin();
+  stateCycle.init(2000);
+  task.init(250);
+
 
   scheduler.init(50);
-  scheduler.addTask(&toggle);
-  scheduler.addTask(&door);
+  scheduler.addTask(&stateCycle);
+  scheduler.addTask(&task);
 }
 
 void loop() {
