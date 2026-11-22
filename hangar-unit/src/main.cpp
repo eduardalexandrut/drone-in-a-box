@@ -5,7 +5,7 @@
 #include "ServoMotor.h"
 #include "DoorToggleTask.h"
 
-include "BusyWaitTimer.h"
+#include "BusyWaitTimer.h"
 #include "BlinkTask.h"
 #include "Scheduler.h"
 
@@ -22,7 +22,7 @@ HangarBlackBoard bb;
 
 ServoMotor servo(SERVO_PIN);
 DoorToggleTask toggle(bb);
-DoorTask door(bb, servo, 90, 3);   // 90° open, 3° per tick: 1.5 s at 50 ms
+DoorTask door(bb, servo, 360, 3);   // 90° open, 3° per tick: 1.5 s at 50 ms
 
 
 
