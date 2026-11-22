@@ -8,7 +8,7 @@
 class ITrafficLight {
 public:
     virtual ~ITrafficLight() = default;
-    virtual set(bool green, bool yellow, bool red) = 0;
+    virtual void set(bool green, bool yellow, bool red) = 0;
 };
 
 #endif //DRONE_IN_A_BOX_ITRAFFICLIGHT_H
