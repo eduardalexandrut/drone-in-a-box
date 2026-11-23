@@ -1,0 +1,59 @@
+name: firmware-ci
+
+on:
+  push:
+    branches:
+      - "feat/**"
+    paths:
+      - "hangar-unit/**"
+      - "drone-unit/**"
+      - "common/**"
+      - ".github/workflows/firmware-ci.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "hangar-unit/**"
+      - "drone-unit/**"
+      - "common/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: pio-${{ runner.os }}-${{ hashFiles('**/platformio.ini') }}
+
+      - run: pip install platformio
+
+      - name: Prepare placeholder secrets
+        run: |
+          for unit in hangar-unit drone-unit; do
+            if [ -f "$unit/include/secrets.example.h" ]; then
+              cp "$unit/include/secrets.example.h" "$unit/include/secrets.h"
+            fi
+          done
+
+      - name: Unit tests
+        run: |
+          for unit in hangar-unit drone-unit; do
+            if [ -f "$unit/platformio.ini" ]; then
+              pio test -d "$unit" -e native
+            fi
+          done
+
+      - name: Build firmware
+        run: |
+          for unit in hangar-unit drone-unit; do
+            if [ -f "$unit/platformio.ini" ]; then
+              pio run -d "$unit" -e pico2w
+            fi
+          done

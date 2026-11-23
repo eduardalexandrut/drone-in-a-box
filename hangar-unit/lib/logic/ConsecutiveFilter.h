@@ -19,6 +19,12 @@ public:
 
   bool get() const { return value; }
 
+  void reset(bool newValue)
+  {
+    value = newValue;
+    count = 0;
+  }
+
 private:
   bool value;
   int toTrue, toFalse, count;
