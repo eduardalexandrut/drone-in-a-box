@@ -54,11 +54,26 @@ void test_drone_absent_when_starting()
     TEST_ASSERT_FALSE(bb.isDroneDetected());
 
 }
+
+void test_blackboard_gets_overwritten()
+{
+    HangarBlackBoard bb;
+    bb.setDroneDetected(true);
+    FakePresenceSensor fakePresenceSensor;
+    fakePresenceSensor.setDetected(false);
+    PresenceTask task(bb, fakePresenceSensor);
+    task.begin();
+
+    TEST_ASSERT_FALSE(bb.isDroneDetected());
+}
+
 int main()
 {
     UNITY_BEGIN();
 
     RUN_TEST(test_drone_starts_as_detected);
+    RUN_TEST(test_drone_absent_when_starting);
+    RUN_TEST(test_blackboard_gets_overwritten);
 
     return UNITY_END();
 }
