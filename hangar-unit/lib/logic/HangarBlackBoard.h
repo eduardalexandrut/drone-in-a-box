@@ -12,6 +12,7 @@ public:
     int getTemperature() const { return temperature; }
     int getHumidity() const { return humidity; }
     bool isEnvOk() const { return envOk; }
+    bool isDroneDetected() const { return droneDetected; }
 
     void setDoorState(DoorState doorState) { this->doorState = doorState; }
     void setDoorCommand(DoorCommand doorCommand) { this->doorCommand = doorCommand; }
@@ -20,6 +21,7 @@ public:
     void setTemperature(int temperature) { this->temperature = temperature; }
     void setHumidity(int humidity) { this->humidity = humidity; }
     void setEnvOk(bool envOk) { this->envOk = envOk; }
+    void setDroneDetected(bool droneDetected) { this->droneDetected = droneDetected; }
 
 private:
     DoorState doorState = DoorState::CLOSED;
@@ -29,6 +31,7 @@ private:
     int temperature = 0;
     int humidity = 0;
     bool envOk = false;
+    bool droneDetected = false;
 };
 
 #endif //DRONE_IN_A_BOX_HANGARBLACKBOARD_H
