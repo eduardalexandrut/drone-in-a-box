@@ -1,6 +1,7 @@
 #ifndef DRONE_IN_A_BOX_HANGARBLACKBOARD_H
 #define DRONE_IN_A_BOX_HANGARBLACKBOARD_H
 
+#include "Event.h"
 #include "HangarTypes.h"
 
 class HangarBlackBoard {
@@ -13,6 +14,7 @@ public:
     int getHumidity() const { return humidity; }
     bool isEnvOk() const { return envOk; }
     bool isDroneDetected() const { return droneDetected; }
+    Event<bool>& resetFromBadge() { return resetFromBadgeEvent; }
 
     void setDoorState(DoorState doorState) { this->doorState = doorState; }
     void setDoorCommand(DoorCommand doorCommand) { this->doorCommand = doorCommand; }
@@ -32,6 +34,7 @@ private:
     int humidity = 0;
     bool envOk = false;
     bool droneDetected = false;
+    Event<bool> resetFromBadgeEvent;// a reference, so producer and consumer work on the same object
 };
 
 #endif //DRONE_IN_A_BOX_HANGARBLACKBOARD_H
