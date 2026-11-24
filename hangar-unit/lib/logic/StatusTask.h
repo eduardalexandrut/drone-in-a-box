@@ -6,26 +6,29 @@
 #define DRONE_IN_A_BOX_STATUSTASK_H
 #include "AbstractTask.h"
 #include "HangarBlackBoard.h"
+#include "IBuzzer.h"
 #include "ITrafficLight.h"
 
 class StatusTask: public AbstractTask {
 public:
-    StatusTask(HangarBlackBoard &bb, ITrafficLight &light);
+    StatusTask(HangarBlackBoard &bb, ITrafficLight &light, IBuzzer& buzzer);
     void tick() override;
 private:
-    enum Lamp {OFF, ON, BLINK};
+    enum Signal {OFF, ON, BLINK};
 
     struct Pattern {
-        Lamp green;
-        Lamp yellow;
-        Lamp red;
+        Signal green;
+        Signal yellow;
+        Signal red;
+        Signal buzzer;
     };
 
     static Pattern patternFor(HangarState state);
-    static bool isLit(Lamp lamp, bool phase);
+    static bool isLit(Signal signal, bool phase);
 
     HangarBlackBoard &bb;
     ITrafficLight &light;
+    IBuzzer &buzzer;
     bool phase = false;
 };
 
